@@ -7,18 +7,41 @@
     <meta name="chrome" content="notranslate">
     <title>Document</title>
     <link rel="stylesheet" href="dist/css/main.css">
+    <style>
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        }
+        #demo{
+            width: 300px;
+            opacity: 75%;
+        }
+    </style>
 </head>
 <body>
 <!-- 內容填在這邊喔 :D -->
+<div id="demo"></div>
 </body>
 
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
 <script src="node_modules/jquery-mousewheel/jquery.mousewheel.js"></script>
 <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="node_modules/lottie-web/build/player/lottie.min.js"></script>
 <script src="dist/js/customize.js"></script>
 <script>
     includeHTML(function(){
         bindingEvent();
+        var element = $('#demo')[0];
+        lottie.loadAnimation({
+        container: element, // the dom element that will contain the animation
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'src/json/data.json' // the path to the animation json
+        });
     })
 </script>
 
