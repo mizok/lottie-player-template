@@ -1,0 +1,229 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass mixins.
+// -----------------------------------------------------------------------------
+
+/// @example 若某元素有滑鼠互動特效時導入
+/// @param {Bool} self [false] - 當值為 false時，不將本身納入樣式有效對象, 也就是說當值為true時, compile出來的css會是 .element,.element:hover,element:active,.element:focus{...} 
+@mixin on-event($conf:(self:false)) {
+  $conf:extend(
+    (self:false),
+    $conf
+  );
+  @if #{map-get($conf , self )}{
+    &,
+    &:hover,
+    &:active,
+    &:focus {
+      @content;
+    }
+  } @else {
+    &:hover,
+    &:active,
+    &:focus {
+      @content;
+    }
+  }
+}
+
+/// @example 從巢狀子層跳脫回到父層的方法
+/// @param {String} selector [初始值為空] - 填入selector name以跳脫至該層
+@mixin when-inside($conf:(selector:'')) {
+  $conf:extend(
+    (selector:''),
+    $conf
+  );
+  #{map-get($conf,selector)} & {
+    @content;
+  }
+}
+
+/// @example 單行字數若溢出容器最大寬度，將超出的字轉換為...
+/// @param {None} none
+@mixin text-ellipsis(){
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/// @example 多行字數若溢出容器最大尺寸，將超出的字轉換為...(IE無效)
+/// @param {Num} howManyLine 參數請填段落最大行數(整數)
+@mixin multi-line-ellipsis($conf:(howManyLine:3)){
+  $conf:extend(
+    (howManyLine:3),
+    $conf
+  );
+  display: -webkit-box;
+  -webkit-line-clamp: #{map-get($conf,howManyLine)};
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}
+
+/// @example 將字體大小的px單位轉換為Rem單位
+/// @param {Num} size 參數請填瀏覽器字體需要成為的字體大小(數字)
+/// @param {Num} base 參數請填瀏覽器字體基準大小(數字)
+@mixin px-to-rem($conf:(size:16,base:16)) {
+  $conf:extend(
+    (size:16,base:16),
+    $conf
+  );
+  font-size: #{map-get($conf,size)}; // fallback for old browsers
+  font-size: (#{map-get($conf,size)} / #{map-get($conf,base)}) * 1rem;
+}
+
+
+/// @example 快速創建線性漸層
+/// @param {String} start_color 參數請填 "顏色HexCode"
+/// @param {String} end_color 參數請填 "顏色HexCode"
+/// @param {String} orientation 參數請填 "vertical 或 "horizontal" 或 "radial"
+@mixin background-gradient($conf:(start_color:'', $end_color:'', $orientation:'')) { 
+  $conf:extend(
+    (start_color:'', $end_color:'', $orientation:''),
+    $conf
+  );
+  background: #{map-get($conf,start_color)};
+
+  @if #{map-get($conf,orientation)} == 'vertical' {
+    background: -webkit-linear-gradient(top, #{map-get($conf,start_color)}, #{map-get($conf,end_color)});
+    background: linear-gradient(to bottom, #{map-get($conf,start_color)}, #{map-get($conf,end_color)});
+  } @else if #{map-get($conf,orientation)} == 'horizontal' {
+    background: -webkit-linear-gradient(left, #{map-get($conf,start_color)}, #{map-get($conf,end_color)});
+    background: linear-gradient(to right, #{map-get($conf,start_color)}, #{map-get($conf,end_color)});
+  } @else if #{map-get($conf,orientation)} == 'radial'  {
+    background: -webkit-radial-gradient(center, ellipse cover, #{map-get($conf,start_color)}, #{map-get($conf,end_color)});
+    background: radial-gradient(ellipse at center, #{map-get($conf,start_color)}, #{map-get($conf,end_color)});
+  } @else {
+    background: -webkit-linear-gradient(top, #{map-get($conf,start_color)}, #{map-get($conf,end_color)});
+    background: linear-gradient(to bottom, #{map-get($conf,start_color)}, #{map-get($conf,end_color)});
+  }
+
+}
+
+
+/// @example 快速創建css3 keyframe(因應keyframe 需要補vendor前綴的問題)
+/// @param {String} name 參數請填keyframe動畫模組名稱
+@mixin keyframes($conf:(name:'keyframeName')) {
+  
+  $conf:extend(
+    (name:'keyframeName'),
+    $conf
+  );
+
+  @-webkit-keyframes #{map-get($conf,name)} {
+    @content;
+  }
+
+  @-moz-keyframes #{map-get($conf,name)} {
+    @content;
+  }
+
+  @keyframes #{map-get($conf,name)} {
+    @content;
+  }
+}
+
+/// @example 快速創建固定間距寬度(寬度可為各種長度單位)的flex grid system
+/// @param {Num} column_number 參數請填數字，grid欄數
+/// @param {Size} column_gutter 參數請填長度單位(px,rem,em,%,vw,...,etc), gird容器內部子容器的垂直/水平間距
+/// @param {String} grid_child_selector 參數請填gird容器內部子容器想要的class名稱, 預設為'*'
+/// @param {String} max_width 參數請填長度單位，gird容器的最大寬度
+/// @param {String} min_screen_width 參數請填長度單位，呈現出這個 mixin 參數所導出的grid樣式時，其最小視窗寬度，預設為0
+@mixin fixed-gutter-flex-grid($conf:(column_number:3,column_gutter:30px,grid_child_selector:'*',max_width:100%,min_screen_width:0px,max_screen_width:999999px)){
+  $conf:extend(
+    (column_number:3,column_gutter:30px,grid_child_selector:'*',max_width:100%,min_screen_width:0px,max_screen_width:9999999px),
+    $conf
+  );
+  @media screen and (min-width:#{map-get($conf, min_screen_width)}) and (max-width:#{map-get($conf, max_screen_width)}) {
+    width: 100%;
+    display:inline-flex;
+    max-width: #{map-get($conf, max_width)};
+    font-size: 0;
+    flex-wrap:wrap;
+    margin-bottom: -#{map-get($conf, column_gutter)};
+    > #{map-get($conf, grid_child_selector)}{
+      display: inline-block;
+      flex:none;
+      flex-grow:0;
+      flex-shrink:0;
+      flex-basis: calc((100% - (#{map-get($conf, column_number)} - 1) * #{map-get($conf, column_gutter)})/#{map-get($conf, column_number)});
+      margin-right: #{map-get($conf, column_gutter)};
+      margin-bottom: #{map-get($conf, column_gutter)};
+      &:nth-child(#{map-get($conf, column_number)}n){
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+/// @example 快速創建固定欄位寬度(寬度可為各種長度單位)的flex grid system
+/// @param {Num} column_number 參數請填數字，grid欄數
+/// @param {Size} vertical_gutter 參數請填長度單位(px,rem,em,%,vw,...,etc), gird容器內部子容器的垂直間距
+/// @param {Size} column_width 參數請填長度單位(px,rem,em,%,vw,...,etc), gird容器內部子容器的固定寬度
+/// @param {String} grid_child_selector 參數請填gird容器內部子容器想要的class名稱, 預設為'*'
+/// @param {String} max_width 參數請填長度單位，gird容器的最大寬度
+/// @param {String} min_screen_width 參數請填長度單位。呈現出這個 mixin 參數所導出的grid樣式時，其最小視窗寬度，預設為0
+
+@mixin fixed-column-flex-grid($conf:(column_number:3,column_width:50px,vertical_gutter:30px,grid_child_selector:'*',max_width:100%,min_screen_width:0px,max_screen_width:9999999px)){
+  $conf:extend(
+    (column_number:3,column_width:50px,grid_child_selector:'*',max_width:100%,vertical_gutter:30px,min_screen_width:0px,max_screen_width:999999px),
+    $conf
+  );
+  $gutter_num:(map-get($conf, column_number) - 1);
+  @media screen and (min-width:#{map-get($conf, min_screen_width)}) and (max-width:#{map-get($conf, max_screen_width)}){
+    width:100%;
+    display:inline-flex;
+    max-width: #{map-get($conf, max_width)};
+    font-size: 0;
+    flex-wrap:wrap;
+    margin-bottom: - #{map-get($conf, vertical_gutter)};
+    > #{map-get($conf, grid_child_selector)}{
+      display: inline-block;
+      flex:none;
+      flex-grow:0;
+      flex-shrink:0;
+      flex-basis:#{map-get($conf, column_width)};
+      margin-right: calc((100% - #{map-get($conf, column_number)} * #{map-get($conf, column_width)}) / #{$gutter_num});
+      ///修正ie異常狀況
+      @media all and (-ms-high-contrast:none)
+     {
+      margin-right: calc((99.99% - #{map-get($conf, column_number)} * #{map-get($conf, column_width)}) / #{$gutter_num});
+     }
+      margin-bottom: #{map-get($conf, vertical_gutter)};
+      &:nth-child(#{map-get($conf, column_number)}n){
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+
+/// @example 快速創建Device Width Media Query規則
+/// @param {String} width_range 參數請填Device類型(手機：phone-only/平板直式：tablet-portrait-below/平板橫式：tablet-landscape-below/個人電腦：desktop-below/個人電腦以上：desktop-up)
+
+@mixin device-width($conf:(width_range:desktop-up)) {
+  $conf:extend(
+    (width_range:desktop-up),
+    $conf
+  );
+  // ***
+  $phone-upper-boundary: 600px;
+  $tablet-portrait-upper-boundary: 900px;
+  $tablet-landscape-upper-boundary: 1200px;
+  $desktop-upper-boundary: 1800px;
+
+  @if $range == phone-only {
+    @media (max-width: #{$phone-upper-boundary - 1}) { @content; }
+  } @else if $range == tablet-portrait-below {
+    @media (max-width: $phone-upper-boundary) { @content; }
+  } @else if $range == tablet-landscape-below {
+    @media (max-width: $tablet-portrait-upper-boundary) { @content; }
+  } @else if $range == desktop-below {
+    @media (max-width: $tablet-landscape-upper-boundary) { @content; }
+  } @else if $range == desktop-up {
+    @media (max-width: $desktop-upper-boundary + 1) { @content; }
+  }
+  
+}
+
+
+
+

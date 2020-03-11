@@ -1,0 +1,43 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"workbench.colorTheme": "Monokai",
+		"editor.minimap.enabled": false,
+		"emmet.triggerExpansionOnTab": true,
+		"gitlens.advanced.messages": {
+			"suppressShowKeyBindingsNotice": true
+		},
+		"window.zoomLevel": 1,
+		"liveServer.settings.port": 5600,
+	
+		
+		"editor.renderControlCharacters": true,
+		"liveSassCompile.settings.formats": [
+			{
+			  "format": "expanded",
+			  "extensionName": ".css",
+			  "savePath": "dist/css/"
+			}
+		],
+		"workbench.colorCustomizations": {
+			"activityBar.background": "#2d1f73",
+			"activityBar.activeBorder": "#b0452f",
+			"activityBar.foreground": "#e7e7e7",
+			"activityBar.inactiveForeground": "#e7e7e799",
+			"activityBarBadge.background": "#b0452f",
+			"activityBarBadge.foreground": "#e7e7e7",
+			"titleBar.activeBackground": "#1d144b",
+			"titleBar.inactiveBackground": "#1d144b99",
+			"titleBar.activeForeground": "#e7e7e7",
+			"titleBar.inactiveForeground": "#e7e7e799",
+			"statusBar.background": "#1d144b",
+			"statusBarItem.hoverBackground": "#2d1f73",
+			"statusBar.foreground": "#e7e7e7"
+		},
+		"peacock.color": "#1d144b"
+	}
+}
