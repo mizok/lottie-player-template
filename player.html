@@ -12,21 +12,72 @@
 <body>
 <!-- 內容填在這邊喔 :D -->
 <div id="player">
-    <div class="screen"></div>
-    <div class="controller-panel">
-        <div class="playtrack">
-            <div class="controller">
-                <a href="#" class="btn"></a>
+    <div class="menu-wrapper">
+        <button class="hamburger hamburger--collapse" type="button">
+            <span class="hamburger-box">
+              <span class="hamburger-inner"></span>
+            </span>
+        </button>
+        <div class="menu">
+            <div class="input-block">
+                <div class="inner">
+                    <input type="file">
+                    <div class="text">
+                        <span></span>
+                    </div>
+                </div>
+                <div class="error-msg">
+                    <span>錯誤訊息</span>
+                </div>
+                <a href="#" class="filder-btn">
+                    <img src="src/img/folder.svg" alt="">
+                </a>
             </div>
-            <div class="track">
-                <div class="track-inner"></div>
+            <div class="list-wrapper">
+                <ul class="list">
+                   <li class="item"><a href=""><span>text</span></a></li>
+                   <li class="item"><a href=""><span>text</span></a></li>
+                   <li class="item"><a href=""><span>text</span></a></li>
+                   <li class="item"><a href=""><span>text</span></a></li>
+                   <li class="item"><a href=""><span>text</span></a></li>
+                   <li class="item"><a href=""><span>text</span></a></li>
+                   <li class="item"><a href=""><span>text</span></a></li>
+                   <li class="item"><a href=""><span>text</span></a></li>
+                   <li class="item"><a href=""><span>text</span></a></li>
+                   <li class="item"><a href=""><span>text</span></a></li>
+                </ul>
+                <a href="#" class="clear-btn">
+                    <span>Clear ALL</span>
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    
+    <div class="fx-wrapper">
+        <div class="screen"></div>
+        <div class="controller-panel">
+            <div class="playtrack">
+                <div class="controller">
+                    <a href="#" class="btn_play controller_btn"></a>
+                </div>
+                <div class="track-wrapper">
+                    <div class="track">
+                        <a href="#" class="track-btn"></a>
+                        <div class="track-inner"></div>
+                    </div>
+                </div>
+                <div class="frame-indicator">
+                    <span>12/99</span>
+                </div>
+            </div>
+            <div class="screen-background"></div>
+            <div class="credit">
+                <span>MADE BY NEUX.CO 2020</span>
             </div>
         </div>
-        <div class="screen-background"></div>
     </div>
-    <div class="credit">
-        <span>NEUX.CO</span>
-    </div>
+   
 </div>
 
 <div class="animation_input"></div>

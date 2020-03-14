@@ -1,15 +1,5 @@
 @charset 'UTF-8';
 
-// 0. Import npm modules
-@import
-  '../../../node_modules/bootstrap/scss/bootstrap.scss';
-
-@import
-'../../../node_modules/hamburgers/_sass/hamburgers/hamburgers.scss';
-
-@import url('../../../node_modules/animate.css/animate.css');
-  
-
 // 1. Import OGG-core
 @import
   '../core/core';
@@ -30,7 +20,9 @@
 @import
   'layout/header',
   'layout/footer',
-  'layout/player';
+  'layout/player',
+  'layout/menu';
+  
 
 // 5. Components
 // @import
@@ -44,4 +36,14 @@
 @import
   'themes/default';
 
+
+// 8. Import npm modules
+@import
+  '../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+@import
+'../../../node_modules/hamburgers/_sass/hamburgers/hamburgers.scss';
+
+
+@import url('../../../node_modules/animate.css/animate.css');
 

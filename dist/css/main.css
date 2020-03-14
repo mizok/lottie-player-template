@@ -1,11 +1,651 @@
 @charset "UTF-8";
+/********************* global reset Start*********************/
+@import url("../../../node_modules/animate.css/animate.css");
+* {
+  padding: 0;
+  margin: 0;
+  font-family: Arial, "文泉驛正黑", "WenQuanYi Zen Hei", "蘋方-繁", "PingFang TC", "黑體-繁", "Heiti TC", "儷黑 Pro", "LiHei Pro", "微軟正黑體", "Microsoft JhengHei", sans-serif;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+}
+
+*:focus {
+  outline: 0;
+}
+
+/********************* global reset End*********************/
+/********************* main HTML Structure reset Start*********************/
+html {
+  line-height: 1.15;
+  /* 1 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */
+  -ms-text-size-adjust: 100%;
+  /* 3 */
+}
+
+body {
+  line-height: 1;
+  color: black;
+}
+
+main {
+  display: block;
+}
+
+article,
+aside,
+footer,
+header,
+nav,
+section,
+figcaption,
+figure {
+  display: block;
+}
+
+/********************* main HTML Structure reset End*********************/
+/********************* Secondary HTML Element reset Start*********************/
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+table caption, table th, table td {
+  text-align: left;
+  font-weight: normal;
+}
+
+table th, table td {
+  vertical-align: top;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+p {
+  color: black;
+}
+
+pre {
+  font-family: Arial, "文泉驛正黑", "WenQuanYi Zen Hei", "蘋方-繁", "PingFang TC", "黑體-繁", "Heiti TC", "儷黑 Pro", "LiHei Pro", "微軟正黑體", "Microsoft JhengHei", sans-serif;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/**
+   * 1. Add the correct box sizing in Firefox.
+   * 2. Show the overflow in Edge and IE.
+   */
+hr {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  /* 1 */
+  height: 0;
+  /* 1 */
+  overflow: visible;
+  /* 2 */
+}
+
+/**
+ * Remove the gray background on active links in IE 10.
+ * Set display : inline-block as default. 
+ */
+a {
+  background-color: transparent;
+  display: inline-block;
+  color: blue;
+  text-decoration: none;
+  -webkit-text-decoration-skip: objects;
+  /* 2 */
+}
+
+a, a:hover, a:active, a:focus {
+  color: black;
+  text-decoration: underline;
+}
+
+a[href] {
+  cursor: pointer;
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong {
+  font-weight: bolder;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/**
+ * Remove the border on images inside links in IE 10.
+ */
+img {
+  border-style: none;
+  display: inline-block;
+}
+
+/**
+ * Hide the overflow in IE.
+ */
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+/********************* Secondary HTML Element reset End*********************/
+/******************** Form Element Reset Start********************/
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  line-height: 1.15;
+  /* 1 */
+  margin: 0;
+  /* 2 */
+  text-transform: none;
+}
+
+textarea {
+  overflow: auto;
+  resize: none;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  border-radius: 0;
+}
+
+input[type="password"]::-ms-reveal, input[type=""]::-ms-clear {
+  display: none;
+}
+
+input:-webkit-input-placeholder, input:-ms-input-placeholder, input::-ms-input-placeholder, input::-webkit-input-placeholder {
+  font: inherit;
+}
+
+input:-webkit-input-placeholder, input:-ms-input-placeholder, input::-ms-input-placeholder, input::placeholder {
+  font: inherit;
+}
+
+input[type='checkbox'], input[type='radio'] {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */
+}
+
+input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-outer-spin-button {
+  height: auto;
+}
+
+input[type='search']::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+  /* 2 */
+}
+
+label[for] {
+  cursor: pointer;
+}
+
+legend {
+  color: inherit;
+  /* 2 */
+  display: table;
+  /* 1 */
+  max-width: 100%;
+  /* 1 */
+  padding: 0;
+  /* 3 */
+  white-space: normal;
+  /* 1 */
+}
+
+/******************** Form Element Reset End********************/
+template {
+  display: none;
+}
+
+[hidden] {
+  display: none;
+}
+
+/**
+ * Clear inner floats
+ */
+.clearfix::after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+html, body {
+  height: 100%;
+  background-color: #000;
+}
+
+#player {
+  height: 100%;
+}
+
+#player .fx-wrapper {
+  height: 100%;
+}
+
+#player .fx-wrapper.blur {
+  -webkit-filter: blur(3px);
+          filter: blur(3px);
+}
+
+#player .screen {
+  height: 100%;
+  background-color: #545454;
+}
+
+#player .controller-panel {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+#player .controller-panel .playtrack {
+  padding-left: 20px;
+  padding-right: 0px;
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#player .controller-panel .playtrack .controller {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+  font-size: 0;
+}
+
+#player .controller-panel .playtrack .controller .controller_btn + .controller_btn {
+  margin-left: 10px;
+}
+
+#player .controller-panel .playtrack .controller .btn_play {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-style: solid;
+  -webkit-transition: 1s border-color;
+  transition: 1s border-color;
+  border-width: 9px 0 9px 18px;
+  border-color: transparent transparent transparent #ffffff;
+}
+
+#player .controller-panel .playtrack .controller .btn_play::after {
+  content: '';
+  display: block;
+  border-color: transparent;
+}
+
+#player .controller-panel .playtrack .controller .btn_play.pause {
+  border-width: 0 0 0 0;
+  border-color: transparent;
+  position: relative;
+}
+
+#player .controller-panel .playtrack .controller .btn_play.pause::after {
+  position: absolute;
+  -webkit-transition: 1s border-color;
+  transition: 1s border-color;
+  left: 0;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 15px;
+  height: 100%;
+  border-left: 5px solid #fff;
+  border-right: 5px solid #fff;
+  border-color: #fff;
+}
+
+#player .controller-panel .playtrack .track-wrapper {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 5px;
+}
+
+#player .controller-panel .playtrack .track-wrapper .track {
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+  position: relative;
+}
+
+#player .controller-panel .playtrack .track-wrapper .track .track-btn {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+#player .controller-panel .playtrack .track-wrapper .track .track-inner {
+  height: 100%;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 30px;
+  background-color: white;
+}
+
+#player .controller-panel .playtrack .frame-indicator {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+  padding-right: 20px;
+}
+
+#player .controller-panel .playtrack .frame-indicator span {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+#player .controller-panel .credit {
+  padding: 5px;
+  padding-right: 20px;
+  width: 100%;
+  text-align: right;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+#player .controller-panel .credit span {
+  color: rgba(255, 255, 255, 0.166);
+  font-size: 12px;
+}
+
+.menu-wrapper .hamburger {
+  outline: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .menu-wrapper .hamburger {
+    width: 100%;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+}
+
+.menu-wrapper .hamburger.is-active {
+  z-index: 999;
+}
+
+.menu-wrapper .menu {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  -webkit-animation: fadeIn 1s;
+          animation: fadeIn 1s;
+  z-index: 99;
+  padding-top: 80px;
+}
+
+.menu-wrapper .menu.active {
+  display: block;
+}
+
+.menu-wrapper .menu .input-block {
+  width: 100%;
+  max-width: 750px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  height: 50px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 2px solid grey;
+}
+
+@media screen and (max-width: 768px) {
+  .menu-wrapper .menu .input-block {
+    width: 90%;
+  }
+}
+
+.menu-wrapper .menu .input-block .inner {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  position: relative;
+}
+
+.menu-wrapper .menu .input-block .inner input {
+  position: relative;
+  z-index: 99;
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  height: 100%;
+  font-size: 20px;
+  opacity: 0;
+}
+
+.menu-wrapper .menu .input-block .inner .text {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.menu-wrapper .menu .input-block .filder-btn {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 30px;
+}
+
+.menu-wrapper .menu .input-block .filder-btn img {
+  width: 100%;
+  opacity: .5;
+}
+
+.menu-wrapper .menu .input-block .error-msg {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+  display: none;
+}
+
+.menu-wrapper .menu .list-wrapper {
+  max-width: 750px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  position: relative;
+  text-align: right;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  margin-top: 50px;
+  height: calc(100% - 180px);
+  border-radius: 10px;
+}
+
+.menu-wrapper .menu .list-wrapper .list {
+  text-align: left;
+  overflow: auto;
+  width: 100%;
+  max-height: calc(100% - 40px);
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .menu-wrapper .menu .list-wrapper .list {
+    border: none;
+  }
+}
+
+.menu-wrapper .menu .list-wrapper .list::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+.menu-wrapper .menu .list-wrapper .list::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+
+.menu-wrapper .menu .list-wrapper .list::-webkit-scrollbar-thumb {
+  background: #e1e1e1;
+  border: 0px none #ffffff;
+  border-radius: 55px;
+}
+
+.menu-wrapper .menu .list-wrapper .list::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+
+.menu-wrapper .menu .list-wrapper .list::-webkit-scrollbar-thumb:active {
+  background: #000000;
+}
+
+.menu-wrapper .menu .list-wrapper .list::-webkit-scrollbar-track {
+  background: #66666600;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+
+.menu-wrapper .menu .list-wrapper .list::-webkit-scrollbar-track:hover {
+  background: #666666;
+}
+
+.menu-wrapper .menu .list-wrapper .list::-webkit-scrollbar-track:active {
+  background: #333333;
+}
+
+.menu-wrapper .menu .list-wrapper .list::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.menu-wrapper .menu .list-wrapper .list .item {
+  height: 50px;
+  border-bottom: 1px dashed #fff;
+}
+
+.menu-wrapper .menu .list-wrapper .list .item a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.menu-wrapper .menu .list-wrapper .list .item a span {
+  color: rgba(255, 255, 255, 0.612);
+}
+
+.menu-wrapper .menu .list-wrapper .clear-btn {
+  display: inline-block;
+  position: relative;
+  background-color: rgba(106, 106, 106, 0.42);
+  -webkit-transition: .5s;
+  transition: .5s;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.menu-wrapper .menu .list-wrapper .clear-btn:hover {
+  background-color: rgba(106, 106, 106, 0.81);
+}
+
+@media screen and (max-width: 768px) {
+  .menu-wrapper .menu .list-wrapper .clear-btn {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    border-radius: 0;
+    text-align: center;
+  }
+}
+
+.menu-wrapper .menu .list-wrapper .clear-btn:hover {
+  text-decoration: none;
+}
+
+.menu-wrapper .menu .list-wrapper .clear-btn:hover span {
+  text-decoration: none;
+}
+
+.menu-wrapper .menu .list-wrapper .clear-btn span {
+  color: white;
+}
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-@import url("../../../node_modules/animate.css/animate.css");
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -156,13 +796,13 @@ sup {
 }
 
 a {
-  color: #007bff;
+  color: blue;
   text-decoration: none;
   background-color: transparent;
 }
 
 a:hover {
-  color: #0056b3;
+  color: #0000b3;
   text-decoration: underline;
 }
 
@@ -3164,12 +3804,12 @@ fieldset:disabled a.btn {
 
 .btn-link {
   font-weight: 400;
-  color: #007bff;
+  color: blue;
   text-decoration: none;
 }
 
 .btn-link:hover {
-  color: #0056b3;
+  color: #0000b3;
   text-decoration: underline;
 }
 
@@ -5170,14 +5810,14 @@ input[type="button"].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #007bff;
+  color: blue;
   background-color: #fff;
   border: 1px solid #dee2e6;
 }
 
 .page-link:hover {
   z-index: 2;
-  color: #0056b3;
+  color: #0000b3;
   text-decoration: none;
   background-color: #e9ecef;
   border-color: #dee2e6;
@@ -10571,7 +11211,7 @@ a.text-dark:hover, a.text-dark:focus {
  * @link https://github.com/jonsuh/hamburgers
  */
 .hamburger {
-  padding: 15px 15px;
+  padding: 10px 10px;
   display: inline-block;
   cursor: pointer;
   -webkit-transition-property: opacity, -webkit-filter;
@@ -10602,12 +11242,12 @@ a.text-dark:hover, a.text-dark:focus {
 .hamburger.is-active .hamburger-inner,
 .hamburger.is-active .hamburger-inner::before,
 .hamburger.is-active .hamburger-inner::after {
-  background-color: #000;
+  background-color: #d8d8d8;
 }
 
 .hamburger-box {
-  width: 40px;
-  height: 24px;
+  width: 25px;
+  height: 22px;
   display: inline-block;
   position: relative;
 }
@@ -10615,13 +11255,13 @@ a.text-dark:hover, a.text-dark:focus {
 .hamburger-inner {
   display: block;
   top: 50%;
-  margin-top: -2px;
+  margin-top: -1px;
 }
 
 .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
-  width: 40px;
-  height: 4px;
-  background-color: #000;
+  width: 25px;
+  height: 2px;
+  background-color: #b0b0b0;
   border-radius: 4px;
   position: absolute;
   -webkit-transition-property: -webkit-transform;
@@ -10651,8 +11291,8 @@ a.text-dark:hover, a.text-dark:focus {
    * 3DX
    */
 .hamburger--3dx .hamburger-box {
-  -webkit-perspective: 80px;
-          perspective: 80px;
+  -webkit-perspective: 50px;
+          perspective: 50px;
 }
 
 .hamburger--3dx .hamburger-inner {
@@ -10689,8 +11329,8 @@ a.text-dark:hover, a.text-dark:focus {
    * 3DX Reverse
    */
 .hamburger--3dx-r .hamburger-box {
-  -webkit-perspective: 80px;
-          perspective: 80px;
+  -webkit-perspective: 50px;
+          perspective: 50px;
 }
 
 .hamburger--3dx-r .hamburger-inner {
@@ -10727,8 +11367,8 @@ a.text-dark:hover, a.text-dark:focus {
    * 3DY
    */
 .hamburger--3dy .hamburger-box {
-  -webkit-perspective: 80px;
-          perspective: 80px;
+  -webkit-perspective: 50px;
+          perspective: 50px;
 }
 
 .hamburger--3dy .hamburger-inner {
@@ -10765,8 +11405,8 @@ a.text-dark:hover, a.text-dark:focus {
    * 3DY Reverse
    */
 .hamburger--3dy-r .hamburger-box {
-  -webkit-perspective: 80px;
-          perspective: 80px;
+  -webkit-perspective: 50px;
+          perspective: 50px;
 }
 
 .hamburger--3dy-r .hamburger-inner {
@@ -10803,8 +11443,8 @@ a.text-dark:hover, a.text-dark:focus {
    * 3DXY
    */
 .hamburger--3dxy .hamburger-box {
-  -webkit-perspective: 80px;
-          perspective: 80px;
+  -webkit-perspective: 50px;
+          perspective: 50px;
 }
 
 .hamburger--3dxy .hamburger-inner {
@@ -10841,8 +11481,8 @@ a.text-dark:hover, a.text-dark:focus {
    * 3DXY Reverse
    */
 .hamburger--3dxy-r .hamburger-box {
-  -webkit-perspective: 80px;
-          perspective: 80px;
+  -webkit-perspective: 50px;
+          perspective: 50px;
 }
 
 .hamburger--3dxy-r .hamburger-inner {
@@ -10879,26 +11519,26 @@ a.text-dark:hover, a.text-dark:focus {
    * Arrow
    */
 .hamburger--arrow.is-active .hamburger-inner::before {
-  -webkit-transform: translate3d(-8px, 0, 0) rotate(-45deg) scale(0.7, 1);
-          transform: translate3d(-8px, 0, 0) rotate(-45deg) scale(0.7, 1);
+  -webkit-transform: translate3d(-5px, 0, 0) rotate(-45deg) scale(0.7, 1);
+          transform: translate3d(-5px, 0, 0) rotate(-45deg) scale(0.7, 1);
 }
 
 .hamburger--arrow.is-active .hamburger-inner::after {
-  -webkit-transform: translate3d(-8px, 0, 0) rotate(45deg) scale(0.7, 1);
-          transform: translate3d(-8px, 0, 0) rotate(45deg) scale(0.7, 1);
+  -webkit-transform: translate3d(-5px, 0, 0) rotate(45deg) scale(0.7, 1);
+          transform: translate3d(-5px, 0, 0) rotate(45deg) scale(0.7, 1);
 }
 
 /*
    * Arrow Right
    */
 .hamburger--arrow-r.is-active .hamburger-inner::before {
-  -webkit-transform: translate3d(8px, 0, 0) rotate(45deg) scale(0.7, 1);
-          transform: translate3d(8px, 0, 0) rotate(45deg) scale(0.7, 1);
+  -webkit-transform: translate3d(5px, 0, 0) rotate(45deg) scale(0.7, 1);
+          transform: translate3d(5px, 0, 0) rotate(45deg) scale(0.7, 1);
 }
 
 .hamburger--arrow-r.is-active .hamburger-inner::after {
-  -webkit-transform: translate3d(8px, 0, 0) rotate(-45deg) scale(0.7, 1);
-          transform: translate3d(8px, 0, 0) rotate(-45deg) scale(0.7, 1);
+  -webkit-transform: translate3d(5px, 0, 0) rotate(-45deg) scale(0.7, 1);
+          transform: translate3d(5px, 0, 0) rotate(-45deg) scale(0.7, 1);
 }
 
 /*
@@ -10920,8 +11560,8 @@ a.text-dark:hover, a.text-dark:focus {
 
 .hamburger--arrowalt.is-active .hamburger-inner::before {
   top: 0;
-  -webkit-transform: translate3d(-8px, -10px, 0) rotate(-45deg) scale(0.7, 1);
-          transform: translate3d(-8px, -10px, 0) rotate(-45deg) scale(0.7, 1);
+  -webkit-transform: translate3d(-5px, -6.25px, 0) rotate(-45deg) scale(0.7, 1);
+          transform: translate3d(-5px, -6.25px, 0) rotate(-45deg) scale(0.7, 1);
   -webkit-transition: top 0.1s ease, -webkit-transform 0.1s 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22);
   transition: top 0.1s ease, -webkit-transform 0.1s 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22);
   transition: top 0.1s ease, transform 0.1s 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22);
@@ -10930,8 +11570,8 @@ a.text-dark:hover, a.text-dark:focus {
 
 .hamburger--arrowalt.is-active .hamburger-inner::after {
   bottom: 0;
-  -webkit-transform: translate3d(-8px, 10px, 0) rotate(45deg) scale(0.7, 1);
-          transform: translate3d(-8px, 10px, 0) rotate(45deg) scale(0.7, 1);
+  -webkit-transform: translate3d(-5px, 6.25px, 0) rotate(45deg) scale(0.7, 1);
+          transform: translate3d(-5px, 6.25px, 0) rotate(45deg) scale(0.7, 1);
   -webkit-transition: bottom 0.1s ease, -webkit-transform 0.1s 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22);
   transition: bottom 0.1s ease, -webkit-transform 0.1s 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22);
   transition: bottom 0.1s ease, transform 0.1s 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22);
@@ -10957,8 +11597,8 @@ a.text-dark:hover, a.text-dark:focus {
 
 .hamburger--arrowalt-r.is-active .hamburger-inner::before {
   top: 0;
-  -webkit-transform: translate3d(8px, -10px, 0) rotate(45deg) scale(0.7, 1);
-          transform: translate3d(8px, -10px, 0) rotate(45deg) scale(0.7, 1);
+  -webkit-transform: translate3d(5px, -6.25px, 0) rotate(45deg) scale(0.7, 1);
+          transform: translate3d(5px, -6.25px, 0) rotate(45deg) scale(0.7, 1);
   -webkit-transition: top 0.1s ease, -webkit-transform 0.1s 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22);
   transition: top 0.1s ease, -webkit-transform 0.1s 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22);
   transition: top 0.1s ease, transform 0.1s 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22);
@@ -10967,8 +11607,8 @@ a.text-dark:hover, a.text-dark:focus {
 
 .hamburger--arrowalt-r.is-active .hamburger-inner::after {
   bottom: 0;
-  -webkit-transform: translate3d(8px, 10px, 0) rotate(-45deg) scale(0.7, 1);
-          transform: translate3d(8px, 10px, 0) rotate(-45deg) scale(0.7, 1);
+  -webkit-transform: translate3d(5px, 6.25px, 0) rotate(-45deg) scale(0.7, 1);
+          transform: translate3d(5px, 6.25px, 0) rotate(-45deg) scale(0.7, 1);
   -webkit-transition: bottom 0.1s ease, -webkit-transform 0.1s 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22);
   transition: bottom 0.1s ease, -webkit-transform 0.1s 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22);
   transition: bottom 0.1s ease, transform 0.1s 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22);
@@ -11145,7 +11785,7 @@ a.text-dark:hover, a.text-dark:focus {
    * Elastic
    */
 .hamburger--elastic .hamburger-inner {
-  top: 2px;
+  top: 1px;
   -webkit-transition-duration: 0.275s;
           transition-duration: 0.275s;
   -webkit-transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -11190,7 +11830,7 @@ a.text-dark:hover, a.text-dark:focus {
    * Elastic Reverse
    */
 .hamburger--elastic-r .hamburger-inner {
-  top: 2px;
+  top: 1px;
   -webkit-transition-duration: 0.275s;
           transition-duration: 0.275s;
   -webkit-transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -11269,10 +11909,10 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .hamburger--emphatic.is-active .hamburger-inner::before {
-  left: -80px;
-  top: -80px;
-  -webkit-transform: translate3d(80px, 80px, 0) rotate(45deg);
-          transform: translate3d(80px, 80px, 0) rotate(45deg);
+  left: -50px;
+  top: -50px;
+  -webkit-transform: translate3d(50px, 50px, 0) rotate(45deg);
+          transform: translate3d(50px, 50px, 0) rotate(45deg);
   -webkit-transition: left 0.125s ease-out, top 0.05s 0.125s linear, -webkit-transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1);
   transition: left 0.125s ease-out, top 0.05s 0.125s linear, -webkit-transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1);
   transition: left 0.125s ease-out, top 0.05s 0.125s linear, transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -11280,10 +11920,10 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .hamburger--emphatic.is-active .hamburger-inner::after {
-  right: -80px;
-  top: -80px;
-  -webkit-transform: translate3d(-80px, 80px, 0) rotate(-45deg);
-          transform: translate3d(-80px, 80px, 0) rotate(-45deg);
+  right: -50px;
+  top: -50px;
+  -webkit-transform: translate3d(-50px, 50px, 0) rotate(-45deg);
+          transform: translate3d(-50px, 50px, 0) rotate(-45deg);
   -webkit-transition: right 0.125s ease-out, top 0.05s 0.125s linear, -webkit-transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1);
   transition: right 0.125s ease-out, top 0.05s 0.125s linear, -webkit-transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1);
   transition: right 0.125s ease-out, top 0.05s 0.125s linear, transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -11328,10 +11968,10 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .hamburger--emphatic-r.is-active .hamburger-inner::before {
-  left: -80px;
-  top: 80px;
-  -webkit-transform: translate3d(80px, -80px, 0) rotate(-45deg);
-          transform: translate3d(80px, -80px, 0) rotate(-45deg);
+  left: -50px;
+  top: 50px;
+  -webkit-transform: translate3d(50px, -50px, 0) rotate(-45deg);
+          transform: translate3d(50px, -50px, 0) rotate(-45deg);
   -webkit-transition: left 0.125s ease-out, top 0.05s 0.125s linear, -webkit-transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1);
   transition: left 0.125s ease-out, top 0.05s 0.125s linear, -webkit-transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1);
   transition: left 0.125s ease-out, top 0.05s 0.125s linear, transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -11339,10 +11979,10 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .hamburger--emphatic-r.is-active .hamburger-inner::after {
-  right: -80px;
-  top: 80px;
-  -webkit-transform: translate3d(-80px, -80px, 0) rotate(45deg);
-          transform: translate3d(-80px, -80px, 0) rotate(45deg);
+  right: -50px;
+  top: 50px;
+  -webkit-transform: translate3d(-50px, -50px, 0) rotate(45deg);
+          transform: translate3d(-50px, -50px, 0) rotate(45deg);
   -webkit-transition: right 0.125s ease-out, top 0.05s 0.125s linear, -webkit-transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1);
   transition: right 0.125s ease-out, top 0.05s 0.125s linear, -webkit-transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1);
   transition: right 0.125s ease-out, top 0.05s 0.125s linear, transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -11375,7 +12015,7 @@ a.text-dark:hover, a.text-dark:focus {
    * Slider
    */
 .hamburger--slider .hamburger-inner {
-  top: 2px;
+  top: 1px;
 }
 
 .hamburger--slider .hamburger-inner::before {
@@ -11400,8 +12040,8 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .hamburger--slider.is-active .hamburger-inner::before {
-  -webkit-transform: rotate(-45deg) translate3d(-5.71429px, -6px, 0);
-          transform: rotate(-45deg) translate3d(-5.71429px, -6px, 0);
+  -webkit-transform: rotate(-45deg) translate3d(-3.57143px, -8px, 0);
+          transform: rotate(-45deg) translate3d(-3.57143px, -8px, 0);
   opacity: 0;
 }
 
@@ -11414,7 +12054,7 @@ a.text-dark:hover, a.text-dark:focus {
    * Slider Reverse
    */
 .hamburger--slider-r .hamburger-inner {
-  top: 2px;
+  top: 1px;
 }
 
 .hamburger--slider-r .hamburger-inner::before {
@@ -11439,8 +12079,8 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .hamburger--slider-r.is-active .hamburger-inner::before {
-  -webkit-transform: rotate(45deg) translate3d(5.71429px, -6px, 0);
-          transform: rotate(45deg) translate3d(5.71429px, -6px, 0);
+  -webkit-transform: rotate(45deg) translate3d(3.57143px, -8px, 0);
+          transform: rotate(45deg) translate3d(3.57143px, -8px, 0);
   opacity: 0;
 }
 
@@ -11549,7 +12189,7 @@ a.text-dark:hover, a.text-dark:focus {
    * Spring
    */
 .hamburger--spring .hamburger-inner {
-  top: 2px;
+  top: 1px;
   -webkit-transition: background-color 0s 0.13s linear;
   transition: background-color 0s 0.13s linear;
 }
@@ -11911,280 +12551,4 @@ a.text-dark:hover, a.text-dark:focus {
   bottom: 0;
   -webkit-transform: rotate(-90deg);
           transform: rotate(-90deg);
-}
-
-/********************* global reset Start*********************/
-* {
-  padding: 0;
-  margin: 0;
-  font-family: Arial, "文泉驛正黑", "WenQuanYi Zen Hei", "蘋方-繁", "PingFang TC", "黑體-繁", "Heiti TC", "儷黑 Pro", "LiHei Pro", "微軟正黑體", "Microsoft JhengHei", sans-serif;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  -webkit-overflow-scrolling: touch;
-}
-
-*:focus {
-  outline: 0;
-}
-
-/********************* global reset End*********************/
-/********************* main HTML Structure reset Start*********************/
-html {
-  line-height: 1.15;
-  /* 1 */
-  -webkit-text-size-adjust: 100%;
-  /* 2 */
-  -ms-text-size-adjust: 100%;
-  /* 3 */
-}
-
-body {
-  line-height: 1;
-  color: black;
-}
-
-main {
-  display: block;
-}
-
-article,
-aside,
-footer,
-header,
-nav,
-section,
-figcaption,
-figure {
-  display: block;
-}
-
-/********************* main HTML Structure reset End*********************/
-/********************* Secondary HTML Element reset Start*********************/
-/* tables still need 'cellspacing="0"' in the markup */
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-table caption, table th, table td {
-  text-align: left;
-  font-weight: normal;
-}
-
-table th, table td {
-  vertical-align: top;
-}
-
-ol, ul {
-  list-style: none;
-}
-
-p {
-  color: black;
-}
-
-pre {
-  font-family: Arial, "文泉驛正黑", "WenQuanYi Zen Hei", "蘋方-繁", "PingFang TC", "黑體-繁", "Heiti TC", "儷黑 Pro", "LiHei Pro", "微軟正黑體", "Microsoft JhengHei", sans-serif;
-  /* 1 */
-  font-size: 1em;
-  /* 2 */
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-/**
-   * 1. Add the correct box sizing in Firefox.
-   * 2. Show the overflow in Edge and IE.
-   */
-hr {
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
-  /* 1 */
-  height: 0;
-  /* 1 */
-  overflow: visible;
-  /* 2 */
-}
-
-/**
- * Remove the gray background on active links in IE 10.
- * Set display : inline-block as default. 
- */
-a {
-  background-color: transparent;
-  display: inline-block;
-  color: #007bff;
-  text-decoration: none;
-  -webkit-text-decoration-skip: objects;
-  /* 2 */
-}
-
-a, a:hover, a:active, a:focus {
-  color: black;
-  text-decoration: underline;
-}
-
-a[href] {
-  cursor: pointer;
-}
-
-/**
- * Add the correct font weight in Chrome, Edge, and Safari.
- */
-b,
-strong {
-  font-weight: bolder;
-}
-
-blockquote, q {
-  quotes: none;
-}
-
-blockquote:before, blockquote:after, q:before, q:after {
-  content: '';
-  content: none;
-}
-
-/**
- * Remove the border on images inside links in IE 10.
- */
-img {
-  border-style: none;
-  display: inline-block;
-}
-
-/**
- * Hide the overflow in IE.
- */
-svg:not(:root) {
-  overflow: hidden;
-}
-
-/**
- * 1. Change the font styles in all browsers.
- * 2. Remove the margin in Firefox and Safari.
- */
-/********************* Secondary HTML Element reset End*********************/
-/******************** Form Element Reset Start********************/
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: inherit;
-  /* 1 */
-  font-size: 100%;
-  /* 1 */
-  line-height: 1.15;
-  /* 1 */
-  margin: 0;
-  /* 2 */
-  text-transform: none;
-}
-
-textarea {
-  overflow: auto;
-  resize: none;
-}
-
-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-       appearance: none;
-  border-radius: 0;
-}
-
-input[type="password"]::-ms-reveal, input[type=""]::-ms-clear {
-  display: none;
-}
-
-input:-webkit-input-placeholder, input:-ms-input-placeholder, input::-ms-input-placeholder, input::-webkit-input-placeholder {
-  font: inherit;
-}
-
-input:-webkit-input-placeholder, input:-ms-input-placeholder, input::-ms-input-placeholder, input::placeholder {
-  font: inherit;
-}
-
-input[type='checkbox'], input[type='radio'] {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  /* 1 */
-  padding: 0;
-  /* 2 */
-}
-
-input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-outer-spin-button {
-  height: auto;
-}
-
-input[type='search']::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-
-[type="button"],
-[type="reset"],
-[type="submit"] {
-  -webkit-appearance: button;
-  /* 2 */
-}
-
-label[for] {
-  cursor: pointer;
-}
-
-legend {
-  color: inherit;
-  /* 2 */
-  display: table;
-  /* 1 */
-  max-width: 100%;
-  /* 1 */
-  padding: 0;
-  /* 3 */
-  white-space: normal;
-  /* 1 */
-}
-
-/******************** Form Element Reset End********************/
-template {
-  display: none;
-}
-
-[hidden] {
-  display: none;
-}
-
-/**
- * Clear inner floats
- */
-.clearfix::after {
-  clear: both;
-  content: '';
-  display: table;
-}
-
-#player .screen {
-  background-color: #000;
-}
-
-#player .controller-panel {
-  position: fixed;
-  bottom: 20px;
-  width: 100%;
-  height: 90px;
-  border-top: 1px solid rgba(255, 255, 255, 0.523);
-}
-
-#player .credit {
-  position: fixed;
-  bottom: 0;
-  padding: 10px;
-  width: 100%;
-  text-align: right;
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-#player .credit span {
-  color: rgba(255, 255, 255, 0.166);
 }

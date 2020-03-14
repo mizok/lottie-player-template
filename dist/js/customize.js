@@ -247,8 +247,36 @@ var $player = {
     ,initial:function(){
         //套件 function
         var dom = this.keyDom;
-        var screen = dom.find('.screen');
-        screen.css('height',generateNull()[1]);
+        var _this = this;
+        var btn_play = dom.find('.btn_play').click(function(e){
+            e.preventDefault();
+            _this.class_toggler($(this),'pause');
+        })
+        var btn_menu = dom.find('.hamburger').click(function(e){
+            e.preventDefault();
+            var btn_dom = $(this);
+            _this.class_toggler(btn_dom,'is-active',function(){
+                _this.class_toggler(btn_dom.siblings('.menu'),'active');
+                _this.class_toggler(dom.find('.fx-wrapper'),'blur');
+            });
+        })
+        // var menu = 
+    }
+    ,class_toggler:function(dom,class_name,cb){
+        var status= {};
+        status.class_added= false;
+        if(!dom.hasClass(class_name)){
+            dom.addClass(class_name);
+            status.class_added = true;
+        }
+        else{
+            dom.removeClass(class_name);
+            status.class_added = false;
+        }
+        if(cb){
+            cb.apply(status);
+        }
+        
     }
 }
 

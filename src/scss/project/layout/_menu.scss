@@ -1,0 +1,196 @@
+
+.menu-wrapper{
+    .hamburger-wrapper{
+       
+    }
+    .hamburger{
+        outline:none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        @media screen and(max-width:768px){
+            width: 100%;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        &.is-active{
+            z-index: 999;
+        }
+    }
+    .menu{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: none;
+        animation:fadeIn 1s;
+        z-index: 99;
+        padding-top: 80px;
+        &.active{
+            display: block;
+        }
+        $inner_max-width: 750px;
+        .input-block{
+            width: 100%;
+            max-width: $inner_max-width;
+            position: relative;
+            display: flex;
+            align-items: center;
+            left: 0;
+            right: 0;
+            margin:0 auto;
+            height: 50px;
+            padding:0 10px;
+            border-radius: 999px;
+            border:2px solid grey;
+            @media screen and (max-width:768px){
+                width: 90%;
+            }
+            .inner{
+                flex:1;
+                position: relative;
+                input{
+                    position: relative;
+                    z-index: 99;
+                    background-color: transparent;
+                    border:none;
+                    width: 100%;
+                    height: 100%;
+                    font-size: 20px;
+                    opacity: 0;
+                }
+                .text{
+                    position: absolute;
+                    z-index: 0;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    span{}
+                }
+            }
+            .filder-btn{
+                position: absolute;
+                right: 20px;
+                top: 50%;
+                transform:translateY(-50%);
+                width: 30px;
+                img{
+                    width: 100%;
+                    opacity: .5;
+                }
+            }
+            .error-msg{
+                flex:none;
+                display: none;
+                span{
+
+                }
+            }
+            
+
+        }
+        .list-wrapper{
+            max-width: $inner_max-width;
+            box-sizing: border-box;
+            position: relative;
+            text-align: right;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            margin-top: 50px;
+            height: calc(100% - 180px);
+            border-radius: 10px;
+
+            .list{
+                text-align: left;
+                overflow: auto;
+                width: 100%;
+                max-height: calc(100% - 40px);
+                border:1px solid white;
+                border-radius: 5px;
+                padding: 20px;
+                @media screen and (max-width:768px){
+                    border:none;
+                }
+                &::-webkit-scrollbar {
+                    width: 9px;
+                    height: 9px;
+                  }
+                  &::-webkit-scrollbar-button {
+                    width: 0px;
+                    height: 0px;
+                  }
+                  &::-webkit-scrollbar-thumb {
+                    background: #e1e1e1;
+                    border: 0px none #ffffff;
+                    border-radius: 55px;
+                  }
+                  &::-webkit-scrollbar-thumb:hover {
+                    background: #ffffff;
+                  }
+                  &::-webkit-scrollbar-thumb:active {
+                    background: #000000;
+                  }
+                  &::-webkit-scrollbar-track {
+                    background: #66666600;
+                    border: 0px none #ffffff;
+                    border-radius: 50px;
+                  }
+                  &::-webkit-scrollbar-track:hover {
+                    background: #666666;
+                  }
+                  &::-webkit-scrollbar-track:active {
+                    background: #333333;
+                  }
+                  &::-webkit-scrollbar-corner {
+                    background: transparent;
+                  }
+                .item{
+
+                    height: 50px;
+                    
+                    border-bottom: 1px dashed #fff;
+                    a{  
+                        display: flex;
+                    align-items: center;
+                        width: 100%;
+                        height: 100%;
+                        span{
+                            color:rgba(255, 255, 255, 0.612);
+                        }
+                    }
+                }
+            }
+            .clear-btn{
+                display: inline-block;
+                position: relative;
+
+                background-color: rgba(106, 106, 106, 0.42);
+                transition:.5s;
+                padding: 10px;
+                border-radius: 5px;
+                &:hover{
+                    background-color: rgba(106, 106, 106, 0.81);
+                }    
+                @media screen and (max-width:768px){
+                    position: fixed;
+                    width: 100%;
+                    left: 0;
+                    bottom: 0;
+                    border-radius: 0;
+                    text-align: center;
+                }
+                &:hover{
+                    text-decoration: none;
+                    span{
+                        text-decoration: none;
+                    }
+                }
+                span{
+                    color:white;
+                }
+            }
+        }
+    }
+}
