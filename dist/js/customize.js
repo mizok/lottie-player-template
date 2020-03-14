@@ -38,6 +38,7 @@ var _isResize = false,
 var _initial = [
     $bodyHandler
     ,$bootstrapPopupEvent
+    ,$player
 ];
 var _onResize = [],
     _onWindowScroll = [],
@@ -238,6 +239,16 @@ var $bodyHandler = {
         //套件 function
         pluginFunction();
         generateNull();
+    }
+}
+
+var $player = {
+    key:'#player'
+    ,initial:function(){
+        //套件 function
+        var dom = this.keyDom;
+        var screen = dom.find('.screen');
+        screen.css('height',generateNull()[1]);
     }
 }
 
