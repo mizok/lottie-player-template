@@ -10,78 +10,80 @@
     <link rel="stylesheet" href="dist/css/main.css">
 </head>
 <body>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-storage.js"></script>
+
 <!-- 內容填在這邊喔 :D -->
+
 <div id="player">
-    <div class="menu-wrapper">
-        <button class="hamburger hamburger--collapse" type="button">
-            <span class="hamburger-box">
-              <span class="hamburger-inner"></span>
-            </span>
-        </button>
-        <div class="menu">
-            <div class="input-block">
-                <div class="inner">
-                    <input type="file">
-                    <div class="text">
-                        <span></span>
+    <div class="inner">
+        <div class="menu-wrapper">
+            <div class="menu" id="menu">
+                <h6><span>SELECT YOUR FILE</span></h6>
+                <div class="input-block">
+                    <div class="inner">
+                        <input type="file">
+                        <div class="text">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="error-msg">
+                        <span>錯誤訊息</span>
+                    </div>
+                    <div class="folder-btn">
+                        <img src="src/img/folder.svg" alt="">
                     </div>
                 </div>
-                <div class="error-msg">
-                    <span>錯誤訊息</span>
+                <h6><span>SELECT YOUR ACTION</span></h6>
+                <div class="list-wrapper">
+                    <ul class="list">
+                       <li class="item" action="preview"><a href=""><span>預覽&nbsp;&nbsp;PREVIEW</span></a></li>
+                       <li class="item white" action="upload"><a href=""><span>上傳至雲端&nbsp;&nbsp;UPLOAD</span></a></li>
+                       <li class="item white" action="download"><a href=""><span>從雲端下載&nbsp;&nbsp;DOWNLOAD</span></a></li>
+                    </ul>
                 </div>
-                <a href="#" class="filder-btn">
-                    <img src="src/img/folder.svg" alt="">
-                </a>
+                
             </div>
-            <div class="list-wrapper">
-                <ul class="list">
-                   <li class="item"><a href=""><span>text</span></a></li>
-                   <li class="item"><a href=""><span>text</span></a></li>
-                   <li class="item"><a href=""><span>text</span></a></li>
-                   <li class="item"><a href=""><span>text</span></a></li>
-                   <li class="item"><a href=""><span>text</span></a></li>
-                   <li class="item"><a href=""><span>text</span></a></li>
-                   <li class="item"><a href=""><span>text</span></a></li>
-                   <li class="item"><a href=""><span>text</span></a></li>
-                   <li class="item"><a href=""><span>text</span></a></li>
-                   <li class="item"><a href=""><span>text</span></a></li>
-                </ul>
-                <a href="#" class="clear-btn">
-                    <span>Clear ALL</span>
-                </a>
-            </div>
-            
         </div>
-    </div>
-    
-    <div class="fx-wrapper">
-        <div class="screen"></div>
-        <div class="controller-panel">
-            <div class="playtrack">
-                <div class="controller">
-                    <a href="#" class="btn_play controller_btn"></a>
+        
+        <div class="screen-wrapper">
+            <button class="hamburger hamburger--collapse" type="button">
+                <span class="hamburger-box">
+                  <span class="hamburger-inner"></span>
+                </span>
+            </button>
+            <div class="fx-wrapper">
+                <div class="screen">
                 </div>
-                <div class="track-wrapper">
-                    <div class="track">
-                        <a href="#" class="track-btn"></a>
-                        <div class="track-inner"></div>
+                <div class="controller-panel">
+                    <div class="playtrack">
+                        <div class="controller">
+                            <a href="#" class="btn_play controller_btn"></a>
+                        </div>
+                        <div class="track-wrapper">
+                            <div class="track">
+                                <a href="#" class="track-btn"></a>
+                                <div class="track-inner"></div>
+                            </div>
+                        </div>
+                        <div class="frame-indicator">
+                            <span>12/99</span>
+                        </div>
+                    </div>
+                    <div class="screen-background"></div>
+                    <div class="credit">
+                        <span>MADE BY NEUX.CO 2020</span>
                     </div>
                 </div>
-                <div class="frame-indicator">
-                    <span>12/99</span>
-                </div>
-            </div>
-            <div class="screen-background"></div>
-            <div class="credit">
-                <span>MADE BY NEUX.CO 2020</span>
             </div>
         </div>
+       
     </div>
-   
 </div>
 
-<div class="animation_input"></div>
-<div class="animation_output"></div>
 
 </body>
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
@@ -89,6 +91,7 @@
 <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="node_modules/lottie-web/build/player/lottie.min.js"></script>
 <script src="dist/js/customize.js"></script>
+<!-- <script src="dist/js/font.js"></script> -->
 <script>
     includeHTML(function(){
         bindingEvent();

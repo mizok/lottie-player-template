@@ -257,189 +257,132 @@ html, body {
 }
 
 #player {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   height: 100%;
-}
-
-#player .fx-wrapper {
-  height: 100%;
-}
-
-#player .fx-wrapper.blur {
-  -webkit-filter: blur(3px);
-          filter: blur(3px);
-}
-
-#player .screen {
-  height: 100%;
+  width: 100%;
+  font-size: 0;
+  white-space: nowrap;
   background-color: #545454;
 }
 
-#player .controller-panel {
-  position: fixed;
+#player * {
+  font-family: 'ubuntu-mono', 'source-han-sans-traditional',Arial, Helvetica, sans-serif;
+}
+
+#player > .inner {
+  height: 100%;
+  -webkit-transition: -webkit-transform 1s;
+  transition: -webkit-transform 1s;
+  transition: transform 1s;
+  transition: transform 1s, -webkit-transform 1s;
+  -webkit-transform: translateX(-30%);
+          transform: translateX(-30%);
+}
+
+@media screen and (max-width: 1024px) {
+  #player > .inner {
+    -webkit-transform: translateX(-80%);
+            transform: translateX(-80%);
+  }
+}
+
+#player.active .inner {
+  -webkit-transform: translateX(0%);
+          transform: translateX(0%);
+}
+
+.screen-wrapper {
+  height: 100%;
   width: 100%;
-  bottom: 0;
-}
-
-#player .controller-panel .playtrack {
-  padding-left: 20px;
-  padding-right: 0px;
-  height: 50px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-#player .controller-panel .playtrack .controller {
-  -webkit-box-flex: 0;
-      -ms-flex: none;
-          flex: none;
-  font-size: 0;
-}
-
-#player .controller-panel .playtrack .controller .controller_btn + .controller_btn {
-  margin-left: 10px;
-}
-
-#player .controller-panel .playtrack .controller .btn_play {
   display: inline-block;
-  width: 18px;
-  height: 18px;
-  border-style: solid;
-  -webkit-transition: 1s border-color;
-  transition: 1s border-color;
-  border-width: 9px 0 9px 18px;
-  border-color: transparent transparent transparent #ffffff;
-}
-
-#player .controller-panel .playtrack .controller .btn_play::after {
-  content: '';
-  display: block;
-  border-color: transparent;
-}
-
-#player .controller-panel .playtrack .controller .btn_play.pause {
-  border-width: 0 0 0 0;
-  border-color: transparent;
+  vertical-align: top;
   position: relative;
 }
 
-#player .controller-panel .playtrack .controller .btn_play.pause::after {
-  position: absolute;
-  -webkit-transition: 1s border-color;
-  transition: 1s border-color;
-  left: 0;
-  right: 0;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  width: 15px;
-  height: 100%;
-  border-left: 5px solid #fff;
-  border-right: 5px solid #fff;
-  border-color: #fff;
-}
-
-#player .controller-panel .playtrack .track-wrapper {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  padding-left: 20px;
-  padding-right: 20px;
-  height: 5px;
-}
-
-#player .controller-panel .playtrack .track-wrapper .track {
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.3);
-  position: relative;
-}
-
-#player .controller-panel .playtrack .track-wrapper .track .track-btn {
-  position: absolute;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-  background-color: #fff;
-  border-radius: 50%;
-}
-
-#player .controller-panel .playtrack .track-wrapper .track .track-inner {
-  height: 100%;
-  display: inline-block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 30px;
-  background-color: white;
-}
-
-#player .controller-panel .playtrack .frame-indicator {
-  -webkit-box-flex: 0;
-      -ms-flex: none;
-          flex: none;
-  padding-right: 20px;
-}
-
-#player .controller-panel .playtrack .frame-indicator span {
-  font-size: 20px;
-  color: rgba(255, 255, 255, 0.3);
-}
-
-#player .controller-panel .credit {
-  padding: 5px;
-  padding-right: 20px;
-  width: 100%;
-  text-align: right;
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
-}
-
-#player .controller-panel .credit span {
-  color: rgba(255, 255, 255, 0.166);
-  font-size: 12px;
-}
-
-.menu-wrapper .hamburger {
+.screen-wrapper .hamburger {
   outline: none;
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
+  z-index: 9999;
 }
 
-@media screen and (max-width: 768px) {
-  .menu-wrapper .hamburger {
+@media screen and (max-width: 1024px) {
+  .screen-wrapper .hamburger {
     width: 100%;
     text-align: left;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
 }
 
-.menu-wrapper .hamburger.is-active {
+.fx-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  -webkit-transition: .5s;
+  transition: .5s;
+  -webkit-box-shadow: -2px 0px 10px 1px rgba(0, 0, 0, 0.5);
+          box-shadow: -2px 0px 10px 1px rgba(0, 0, 0, 0.5);
+}
+
+#player.active .fx-wrapper {
   z-index: 999;
+  -webkit-filter: blur(5px);
+          filter: blur(5px);
+}
+
+#player.active .fx-wrapper:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.menu-wrapper {
+  width: 30%;
+  display: inline-block;
+  height: 100%;
+  vertical-align: top;
+}
+
+@media screen and (max-width: 1024px) {
+  .menu-wrapper {
+    width: 80%;
+  }
+}
+
+#player.active .menu-wrapper {
+  position: relative;
 }
 
 .menu-wrapper .menu {
-  position: fixed;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: none;
+  background-color: gray;
   -webkit-animation: fadeIn 1s;
           animation: fadeIn 1s;
   z-index: 99;
-  padding-top: 80px;
+  padding-top: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: rgba(255, 255, 255, 0.555);
 }
 
-.menu-wrapper .menu.active {
-  display: block;
+.menu-wrapper .menu h6 {
+  font-size: 14px;
+  padding-left: .5rem;
+  margin-top: 20px;
 }
 
 .menu-wrapper .menu .input-block {
   width: 100%;
+  cursor: pointer;
   max-width: 750px;
   position: relative;
   display: -webkit-box;
@@ -452,25 +395,24 @@ html, body {
   right: 0;
   margin: 0 auto;
   height: 50px;
-  padding: 0 10px;
-  border-radius: 999px;
-  border: 2px solid grey;
-}
-
-@media screen and (max-width: 768px) {
-  .menu-wrapper .menu .input-block {
-    width: 90%;
-  }
 }
 
 .menu-wrapper .menu .input-block .inner {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.555);
   position: relative;
+  -webkit-transition: none;
+  transition: none;
+  height: 100%;
+  cursor: pointer;
 }
 
 .menu-wrapper .menu .input-block .inner input {
+  cursor: pointer;
   position: relative;
   z-index: 99;
   background-color: transparent;
@@ -488,18 +430,32 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-left: 10px;
+  pointer-events: none;
 }
 
-.menu-wrapper .menu .input-block .filder-btn {
+.menu-wrapper .menu .input-block .inner .text span {
+  font-size: 15px;
+  color: #eee;
+}
+
+.menu-wrapper .menu .input-block .folder-btn {
   position: absolute;
   right: 20px;
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
   width: 30px;
+  pointer-events: none;
 }
 
-.menu-wrapper .menu .input-block .filder-btn img {
+.menu-wrapper .menu .input-block .folder-btn img {
   width: 100%;
   opacity: .5;
 }
@@ -520,22 +476,16 @@ html, body {
   left: 0;
   right: 0;
   margin: 0 auto;
-  margin-top: 50px;
-  height: calc(100% - 180px);
-  border-radius: 10px;
+  margin-top: 0px;
 }
 
 .menu-wrapper .menu .list-wrapper .list {
   text-align: left;
   overflow: auto;
   width: 100%;
-  max-height: calc(100% - 40px);
-  border: 1px solid white;
-  border-radius: 5px;
-  padding: 20px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
   .menu-wrapper .menu .list-wrapper .list {
     border: none;
   }
@@ -585,7 +535,20 @@ html, body {
 
 .menu-wrapper .menu .list-wrapper .list .item {
   height: 50px;
-  border-bottom: 1px dashed #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+}
+
+.menu-wrapper .menu .list-wrapper .list .item.white {
+  background-color: #bdbdbd;
+}
+
+.menu-wrapper .menu .list-wrapper .list .item.white a span {
+  color: grey;
+}
+
+.menu-wrapper .menu .list-wrapper .list .item + .item {
+  margin-top: 30px;
 }
 
 .menu-wrapper .menu .list-wrapper .list .item a {
@@ -595,49 +558,154 @@ html, body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   width: 100%;
   height: 100%;
+  text-decoration: none;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .menu-wrapper .menu .list-wrapper .list .item a span {
   color: rgba(255, 255, 255, 0.612);
+  font-size: 12px;
 }
 
-.menu-wrapper .menu .list-wrapper .clear-btn {
+.screen {
+  height: 100%;
+  padding-bottom: 70px;
+  background-color: #545454;
+}
+
+.controller-panel {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+.controller-panel .playtrack {
+  padding-left: 20px;
+  padding-right: 0px;
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.controller-panel .playtrack .controller {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+  font-size: 0;
+}
+
+.controller-panel .playtrack .controller .controller_btn + .controller_btn {
+  margin-left: 10px;
+}
+
+.controller-panel .playtrack .controller .btn_play {
   display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-style: solid;
+  -webkit-transition: 1s border-color;
+  transition: 1s border-color;
+  border-width: 9px 0 9px 18px;
+  border-color: transparent transparent transparent #ffffff;
+}
+
+.controller-panel .playtrack .controller .btn_play::after {
+  content: '';
+  display: block;
+  border-color: transparent;
+}
+
+.controller-panel .playtrack .controller .btn_play.pause {
+  border-width: 0 0 0 0;
+  border-color: transparent;
   position: relative;
-  background-color: rgba(106, 106, 106, 0.42);
-  -webkit-transition: .5s;
-  transition: .5s;
-  padding: 10px;
-  border-radius: 5px;
 }
 
-.menu-wrapper .menu .list-wrapper .clear-btn:hover {
-  background-color: rgba(106, 106, 106, 0.81);
+.controller-panel .playtrack .controller .btn_play.pause::after {
+  position: absolute;
+  -webkit-transition: 1s border-color;
+  transition: 1s border-color;
+  left: 0;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 15px;
+  height: 100%;
+  border-left: 5px solid #fff;
+  border-right: 5px solid #fff;
+  border-color: #fff;
 }
 
-@media screen and (max-width: 768px) {
-  .menu-wrapper .menu .list-wrapper .clear-btn {
-    position: fixed;
-    width: 100%;
-    left: 0;
-    bottom: 0;
-    border-radius: 0;
-    text-align: center;
-  }
+.controller-panel .playtrack .track-wrapper {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 5px;
 }
 
-.menu-wrapper .menu .list-wrapper .clear-btn:hover {
-  text-decoration: none;
+.controller-panel .playtrack .track-wrapper .track {
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+  position: relative;
 }
 
-.menu-wrapper .menu .list-wrapper .clear-btn:hover span {
-  text-decoration: none;
+.controller-panel .playtrack .track-wrapper .track .track-btn {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 50%;
 }
 
-.menu-wrapper .menu .list-wrapper .clear-btn span {
-  color: white;
+.controller-panel .playtrack .track-wrapper .track .track-inner {
+  height: 100%;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 30px;
+  background-color: white;
+}
+
+.controller-panel .playtrack .frame-indicator {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+  padding-right: 20px;
+}
+
+.controller-panel .playtrack .frame-indicator span {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.controller-panel .credit {
+  padding: 5px;
+  padding-right: 20px;
+  width: 100%;
+  text-align: right;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.controller-panel .credit span {
+  color: rgba(255, 255, 255, 0.166);
+  font-size: 12px;
 }
 
 /*!
@@ -11242,7 +11310,7 @@ a.text-dark:hover, a.text-dark:focus {
 .hamburger.is-active .hamburger-inner,
 .hamburger.is-active .hamburger-inner::before,
 .hamburger.is-active .hamburger-inner::after {
-  background-color: #d8d8d8;
+  background-color: #ababab;
 }
 
 .hamburger-box {
@@ -11261,7 +11329,7 @@ a.text-dark:hover, a.text-dark:focus {
 .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
   width: 25px;
   height: 2px;
-  background-color: #b0b0b0;
+  background-color: #ababab;
   border-radius: 4px;
   position: absolute;
   -webkit-transition-property: -webkit-transform;

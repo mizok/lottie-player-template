@@ -1,123 +1,190 @@
 #player { 
+    user-select: none;
     height: 100%;
-    .fx-wrapper{
+    width: 100%;
+    font-size: 0;
+    white-space: nowrap;
+    background-color: rgb(84, 84, 84);
+    *{font-family: 'ubuntu-mono', 'source-han-sans-traditional',Arial, Helvetica, sans-serif}
+    >.inner{
         height: 100%;
-        &.blur{
-            filter:blur(3px);
+        transition:transform 1s;
+        transform:translateX(-30%);
+        @media screen and (max-width:1024px){
+            transform:translateX(-80%);
+        }
+    }
+    &.active{
+        .inner{
+            transform:translateX(0%);
         }
     }
     
-	.screen { 
-        height: 100%;
-        background-color: rgb(84, 84, 84);
-	}
-
-	.controller-panel { 
-        position: fixed;
-        width: 100%;
-        bottom: 0;
-		.playtrack { 
-            padding-left: 20px;
-            padding-right: 0px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-			.controller { 
-                flex:none;
-                font-size: 0;
-                .controller_btn{
-                    +.controller_btn{
-                        margin-left: 10px;
-                    }
-                }
-				.btn_play { 
-                    display: inline-block;
-                    width: 18px;
-                    height: 18px;
-                    border-style: solid;
-                    transition: 1s border-color;
-                    border-width: 9px 0 9px 18px;
-                    border-color: transparent transparent transparent #ffffff;
-                    &::after{
-                        content: '';
-                        display: block;
-                        border-color:transparent;
-                    }
-                    &.pause{
-                        border-width:0 0 0 0;
-                        border-color:transparent;
-                        position: relative;
-                        
-                        &::after{
-                            position: absolute;
-                            transition: 1s border-color;
-                            left: 0;
-                            right: 0;
-                            top: 50%;
-                            transform: translateY(-50%);
-                            width: 15px;
-                            height: 100%;
-                            border-left: 5px solid #fff;
-                            border-right: 5px solid #fff;
-                            border-color:#fff;
-                        }
-                    }
-                }
-			}
-            .track-wrapper{
-                flex:1;
-                padding-left: 20px;
-                padding-right: 20px;
-                height: 5px;
-                .track { 
-                    height: 100%;
-                    background-color: rgba(255, 255, 255, 0.3);
-                    position: relative;
-                    .track-btn{
-                        position: absolute;
-                        top: 50%;
-                        transform:translateY(-50%);
-                        width: 20px;
-                        height: 20px;
-                        background-color: #fff;
-                        border-radius: 50%;
-                    }
-                    .track-inner { 
-                        height: 100%;
-                        display: inline-block;
-                        position: absolute;
-                        left: 0;
-                        top: 0;
-                        width: 30px;
-                        background-color: rgba(255, 255, 255, 1);
-                    }
-                }
-            }
-            .frame-indicator{
-                flex:none;
-                padding-right: 20px;
-                span{
-                    font-size: 20px;
-                    color:rgba(255, 255, 255, 0.3);
-                }
-            }
-			
-		}
-
-		.screen-background { 
-
-        }
-        .credit{
-            padding:5px;
-            padding-right: 20px;
+}
+.screen-wrapper{
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    .hamburger{
+        outline:none;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 9999;
+        @media screen and(max-width:1024px){
             width: 100%;
-            text-align: right;
-            border-top: 1px solid rgba(255, 255, 255, 0.25);
-            span{
-                color: rgba(255, 255, 255, 0.166);
-                font-size: 12px;
-            }
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
         }
     }
-   
+}
+.fx-wrapper{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    transition:.5s;
+    box-shadow: -2px 0px 10px 1px rgba(0, 0, 0, 0.5);
+    #player.active &{
+        z-index: 999;
+        filter:blur(5px);
+        &:after{
+            content: '';
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+    }
+}
+.menu-wrapper{
+    width: 30%;
+    display: inline-block;
+    height: 100%;
+    vertical-align: top;
+    @media screen and (max-width:1024px){
+        width: 80%;
+    }
+    #player.active &{
+        position: relative;
+    }
+    @import 'menu';
+}
+
+
+
+
+.screen { 
+    height: 100%;
+    padding-bottom: 70px;
+    background-color: rgb(84, 84, 84);
+}
+
+.controller-panel { 
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    .playtrack { 
+        padding-left: 20px;
+        padding-right: 0px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        .controller { 
+            flex:none;
+            font-size: 0;
+            .controller_btn{
+                +.controller_btn{
+                    margin-left: 10px;
+                }
+            }
+            .btn_play { 
+                display: inline-block;
+                width: 18px;
+                height: 18px;
+                border-style: solid;
+                transition: 1s border-color;
+                border-width: 9px 0 9px 18px;
+                border-color: transparent transparent transparent #ffffff;
+                &::after{
+                    content: '';
+                    display: block;
+                    border-color:transparent;
+                }
+                &.pause{
+                    border-width:0 0 0 0;
+                    border-color:transparent;
+                    position: relative;
+                    
+                    &::after{
+                        position: absolute;
+                        transition: 1s border-color;
+                        left: 0;
+                        right: 0;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        width: 15px;
+                        height: 100%;
+                        border-left: 5px solid #fff;
+                        border-right: 5px solid #fff;
+                        border-color:#fff;
+                    }
+                }
+            }
+        }
+        .track-wrapper{
+            flex:1;
+            padding-left: 20px;
+            padding-right: 20px;
+            height: 5px;
+            .track { 
+                height: 100%;
+                background-color: rgba(255, 255, 255, 0.3);
+                position: relative;
+                .track-btn{
+                    position: absolute;
+                    top: 50%;
+                    transform:translateY(-50%);
+                    width: 20px;
+                    height: 20px;
+                    background-color: #fff;
+                    border-radius: 50%;
+                }
+                .track-inner { 
+                    height: 100%;
+                    display: inline-block;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 30px;
+                    background-color: rgba(255, 255, 255, 1);
+                }
+            }
+        }
+        .frame-indicator{
+            flex:none;
+            padding-right: 20px;
+            span{
+                font-size: 20px;
+                color:rgba(255, 255, 255, 0.3);
+            }
+        }
+        
+    }
+
+    
+    .credit{
+        padding:5px;
+        padding-right: 20px;
+        width: 100%;
+        text-align: right;
+        border-top: 1px solid rgba(255, 255, 255, 0.25);
+        span{
+            color: rgba(255, 255, 255, 0.166);
+            font-size: 12px;
+        }
+    }
 }
