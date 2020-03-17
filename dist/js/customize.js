@@ -36,7 +36,8 @@ function bindingEvent(){
 var _isResize = false,
     _isWindowScroll = false;
 var _initial = [
-    $bodyHandler
+    $util
+    ,$bodyHandler
     ,$bootstrapPopupEvent
     ,$player
     ,$menu
@@ -247,35 +248,22 @@ var firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
-var $bodyHandler = {
-    key:'body'
-    ,initial:function(){
-        //套件 function
-        pluginFunction();
-        generateNull();
-    }
+
+var $action={
+    player:{},
+    panel:{}
 }
 
-var $player = {
-    key:'#player'
-    ,initial:function(){
-        var dom = this.keyDom;
-        var _this = this;
-        var btn_play = dom.find('.btn_play').click(function(e){
-            e.preventDefault();
-            _this.class_toggler($(this),'pause');
-        })
-        var btn_menu = dom.find('.hamburger').click(function(e){
-            e.preventDefault();
-            var btn_dom = $(this);
-            _this.class_toggler(btn_dom,'is-active',function(){
-                _this.class_toggler(dom,'active');
-            });
-        })
-       
+var $util={
+    initial:function(){
+        //套件 function
+        this.pluginFunction();
+        
+    },
+    pluginFunction:function(){
 
-    }
-    ,class_toggler:function(dom,class_name,cb){
+    },
+    class_toggler:function(dom,class_name,cb){
         var status= {};
         status.class_added= false;
         if(!dom.hasClass(class_name)){
@@ -293,6 +281,53 @@ var $player = {
     }
 }
 
+var $bodyHandler = {
+    key:'body'
+    ,initial:function(){
+        //套件 function
+        generateNull();
+    }
+}
+
+var $player = {
+    key:'#player'
+    ,initial:function(){
+        var dom = this.keyDom;
+        var _this = this;
+
+        // 定義播放鍵handler
+        var btn_play = dom.find('.btn_play')
+        $action.player.togglePause = function(){
+            $util.class_toggler(btn_play,'pause');
+        }
+        btn_play.click(function(e){
+            e.preventDefault();
+            $action.player.togglePause();
+        })
+        
+        // 定義菜單鍵handler
+        var btn_menu = dom.find('.hamburger')
+        $action.panel.toggleOpen = function(){
+            $util.class_toggler(dom,'active');
+        }
+        btn_menu.click(function(e){
+           
+            e.preventDefault();
+            $action.panel.toggleOpen();
+        })
+       
+
+    }
+    
+}
+var $controllerPanel = {
+    key:'.controller-panel'
+    ,initial:function(){
+        var dom = this.keyDom;
+        var _this = this;
+        var playtrack = dom.find('')
+    }
+}
 var $menu = {
     key:'#menu'
     ,initial:function(){
@@ -304,24 +339,8 @@ var $menu = {
             var _input = dom.find('.input-block input');
             var selectedFile = _input[0].files[0];  
             var action = $(this).parents('.item').attr('action');
-            if(action=='preview'){
-                var fileread = new FileReader();
-                fileread.onload = function(e) {
-                    var content = e.target.result;
-                    // console.log(content);
-                    var intern = JSON.parse(content); // Array of Objects.
-                    lottie.loadAnimation({
-                        container: $('.screen')[0], // the dom element that will contain the animation
-                        renderer: 'svg',
-                        loop: true,
-                        autoplay: true,
-                        animationData: intern
-                        // path: 'src/json/data.json' // the path to the animation json
-                    });
-                };
-                fileread.readAsText(selectedFile);
-                
-            }
+
+            
             // var storageRef = firebase.storage().ref('animation-json/'+selectedFile.name); 
             // storageRef.put(selectedFile).then(function(snapshot) {
             //     console.log('Uploaded a blob or file!');
@@ -329,10 +348,36 @@ var $menu = {
         })
         var file_input = dom.find('.input-block input').on('change',function(e){
             e.preventDefault();
-            // alert('aa');
             var _input = dom.find('.input-block input');
             var selectedFile = _input[0].files[0];  
             $(this).parents('.input-block').find('.text span').html(selectedFile.name);
+            var fileread = new FileReader();
+            fileread.onload = function(e) {
+                var content = e.target.result;
+                // console.log(content);
+                var lottieObj = {
+                    animationJSON:JSON.parse(content),
+                    deleteAnimationRef:function(){
+                        delete this.animationRef;
+                        $('.screen svg').remove();
+                    },
+                    genAnimationRef:function(){
+                        var _this = this;
+                        _this.deleteAnimationRef();
+                        _this.animationRef = lottie.loadAnimation({
+                            container: $('.screen')[0], // the dom element that will contain the animation
+                            renderer: 'svg',
+                            loop: true,
+                            autoplay: true,
+                            animationData: _this.animationJSON
+                            // path: 'src/json/data.json' // the path to the animation json
+                        })
+                    },
+                };
+                lottieObj.genAnimationRef();
+                $action.panel.toggleOpen();
+            };
+            fileread.readAsText(selectedFile);
         })
         
 
@@ -754,12 +799,6 @@ function throttle(func, threshhold) {
 }
 
 //=========== tool function:end ===============//
-
-//===========   plugin function ============//
-function pluginFunction(){
-
-}
-//===========   plugin function: end =======//
 
 
 

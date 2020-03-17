@@ -328,20 +328,27 @@ html, body {
           box-shadow: -2px 0px 10px 1px rgba(0, 0, 0, 0.5);
 }
 
-#player.active .fx-wrapper {
-  z-index: 999;
-  -webkit-filter: blur(5px);
-          filter: blur(5px);
-}
-
-#player.active .fx-wrapper:after {
+.fx-wrapper:after {
   content: '';
   display: block;
   position: absolute;
+  -webkit-transition: 1s;
+  transition: 1s;
   width: 100%;
   height: 100%;
+  pointer-events: none;
   top: 0;
   left: 0;
+}
+
+#player.active .fx-wrapper {
+  z-index: 999;
+  -webkit-filter: blur(7px);
+          filter: blur(7px);
+}
+
+#player.active .fx-wrapper:after {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .menu-wrapper {
@@ -540,6 +547,7 @@ html, body {
 }
 
 .menu-wrapper .menu .list-wrapper .list .item.white {
+  opacity: .3;
   background-color: #bdbdbd;
 }
 
