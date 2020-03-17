@@ -250,6 +250,7 @@ var firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 
+
 var lottieObj = {
     target:$('.screen')[0]
     ,getDefaultAnimation : function(){
@@ -285,6 +286,7 @@ var lottieObj = {
 
     }
 }.getDefaultAnimation();
+
 var $action={
     player:{},
     panel:{}
@@ -299,17 +301,17 @@ var $util={
 
     },
     class_toggler:function(dom,class_name,cb){
-        class_added= false;
+        this.class_added= false;
         if(!dom.hasClass(class_name)){
             dom.addClass(class_name);
-            class_added = true;
+        this.class_added = true;
         }
         else{
             dom.removeClass(class_name);
-            class_added = false;
+        this.class_added = false;
         }
         if(cb){
-            cb.call(status);
+            cb.call(this);
         }
     }
 }
