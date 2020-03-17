@@ -62,6 +62,7 @@
         filter:blur(7px);
         &:after{
             background-color: rgba(0, 0, 0, 0.5);
+            pointer-events: auto;
         }
     }
 }
@@ -175,8 +176,10 @@
         }
         .frame-indicator{
             flex:none;
-            width: 4rem;
-            padding-right: 20px;
+            min-width: 5rem;
+            padding-left: 10px;
+            padding-right: 10px;
+            text-align: center;
             span{
                 font-size: 20px;
                 color:rgba(255, 255, 255, 0.3);

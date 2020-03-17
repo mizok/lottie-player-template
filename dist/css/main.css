@@ -349,6 +349,7 @@ html, body {
 
 #player.active .fx-wrapper:after {
   background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
 }
 
 .menu-wrapper {
@@ -546,12 +547,16 @@ html, body {
   border-radius: 10px;
 }
 
-.menu-wrapper .menu .list-wrapper .list .item.white {
+.menu-wrapper .menu .list-wrapper .list .item.disable {
   opacity: .3;
   background-color: #bdbdbd;
 }
 
-.menu-wrapper .menu .list-wrapper .list .item.white a span {
+.menu-wrapper .menu .list-wrapper .list .item.disable a {
+  cursor: not-allowed;
+}
+
+.menu-wrapper .menu .list-wrapper .list .item.disable a span {
   color: grey;
 }
 
@@ -695,8 +700,10 @@ html, body {
   -webkit-box-flex: 0;
       -ms-flex: none;
           flex: none;
-  width: 4rem;
-  padding-right: 20px;
+  min-width: 5rem;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
 }
 
 .controller-panel .playtrack .frame-indicator span {

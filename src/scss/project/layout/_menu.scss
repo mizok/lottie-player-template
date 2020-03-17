@@ -113,10 +113,12 @@
                 height: 50px;
                 border: 1px solid #eee;
                 border-radius: 10px;
-                &.white{
+                &.disable{
                     opacity: .3;
                     background-color: rgb(189, 189, 189);
+                    
                     a{
+                        cursor:not-allowed;
                         span{
                             color:grey;
                         }

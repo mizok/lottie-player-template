@@ -252,6 +252,18 @@ var firebaseConfig = {
 
 var lottieObj = {
     target:$('.screen')[0]
+    ,getDefaultAnimation : function(){
+        var _this = this;
+        $.getJSON("../../src/json/data.json",function(result){
+            _this.animationJSON = result;
+            lottieObj.genAnimationRef();
+            // 初始化最大幀數
+            $('#frameTotal').html(lottieObj.animationRef.totalFrames);
+        })
+        
+        delete this.getDefaultAnimationData;
+        return this;
+    }
     ,deleteAnimationRef:function(){
         if(this.hasOwnProperty('animationRef')){
             $player.$subModule._controllerPanel.util.toFrame(0);
@@ -272,7 +284,7 @@ var lottieObj = {
         })
 
     }
-};
+}.getDefaultAnimation();
 var $action={
     player:{},
     panel:{}
@@ -287,18 +299,17 @@ var $util={
 
     },
     class_toggler:function(dom,class_name,cb){
-        var status= {};
-        status.class_added= false;
+        class_added= false;
         if(!dom.hasClass(class_name)){
             dom.addClass(class_name);
-            status.class_added = true;
+            class_added = true;
         }
         else{
             dom.removeClass(class_name);
-            status.class_added = false;
+            class_added = false;
         }
         if(cb){
-            cb.apply(status);
+            cb.call(status);
         }
     }
 }
@@ -329,6 +340,8 @@ var $player = {
             e.preventDefault();
             $action.panel.toggleOpen();
         })
+        this.$subModule.initial();
+        
     }
     ,$subModule:{
         initial:function(){
@@ -351,7 +364,27 @@ var $player = {
                 // 定義播放鍵handler
                 var btn_play = dom.find('.btn_play')
                 $action.player.togglePause = function(){
-                    $util.class_toggler(btn_play,'pause');
+                    $util.class_toggler(btn_play,'pause',function(){
+                        var doPlay;
+                        var n=0;
+                        var fps = 33;
+                        var totalFrame = lottieObj.animationRef.totalFrames;
+                        if(!class_added){
+                            clearInterval(doPlay);
+                            $player.$subModule._controllerPanel.util.toFrame(n/(totalFrame-1));
+                        }
+                        else if(class_added){
+                            doPlay = setInterval(function(){
+                                $player.$subModule._controllerPanel.util.toFrame(n/(totalFrame-1));
+                                n++;
+                                if(n/totalFrame>=1){
+                                    clearInterval(doPlay);
+                                }
+                            }, fps);
+                        }
+                        
+                    });
+                    
                     
                 }
                 btn_play.click(function(e){
@@ -374,7 +407,7 @@ var $player = {
                 });
                 
                 // 初始化最大幀數
-                dom.find('.frameTotal').html(lottieObj.animationRef.totalFrames)
+                // dom.find('#frameTotal').html(lottieObj.animationRef.totalFrames);
 
                 //注意  module 耦合處  !!!
                 $player.keyDom.on('mouseup mouseleave',function(e){
@@ -409,7 +442,7 @@ var $player = {
                     track_inner.css('width',(maxDist*percent)+'px');
                     track_btn.css('left',(maxDist*percent)+'px');
                     var frameNow = Math.floor(percent*lottieObj.animationRef.totalFrames);
-                    dom.find('.frameNow').html(frameNow);
+                    dom.find('#frameNow').html(frameNow);
                     if(lottieObj.hasOwnProperty('animationRef')){
                         lottieObj.animationRef.goToAndStop(frameNow, true);
                     }
@@ -449,7 +482,7 @@ var $menu = {
 
                 lottieObj.animationJSON=JSON.parse(content);
                 lottieObj.genAnimationRef();
-                $player.$subModule.initial();
+                
 
 
                 $action.panel.toggleOpen();
