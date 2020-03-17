@@ -301,17 +301,20 @@ var $util={
 
     },
     class_toggler:function(dom,class_name,cb){
-        this.class_added= false;
+        var n = false;
+        var status = function(n){
+            this.class_added = n;
+        }
         if(!dom.hasClass(class_name)){
             dom.addClass(class_name);
-        this.class_added = true;
+            n = true;
         }
         else{
             dom.removeClass(class_name);
-        this.class_added = false;
+            n = false;
         }
         if(cb){
-            cb.call(this);
+            cb.apply(new status(n));
         }
     }
 }
@@ -365,22 +368,24 @@ var $player = {
 
                 // 定義播放鍵handler
                 var btn_play = dom.find('.btn_play')
+                var n = 0;
+                var doPlay;
                 $action.player.togglePause = function(){
                     $util.class_toggler(btn_play,'pause',function(){
-                        var doPlay;
-                        var n=0;
                         var fps = 33;
                         var totalFrame = lottieObj.animationRef.totalFrames;
-                        if(!class_added){
+                        if(!this.class_added){
                             clearInterval(doPlay);
                             $player.$subModule._controllerPanel.util.toFrame(n/(totalFrame-1));
                         }
-                        else if(class_added){
+                        else if(this.class_added){
                             doPlay = setInterval(function(){
                                 $player.$subModule._controllerPanel.util.toFrame(n/(totalFrame-1));
-                                n++;
                                 if(n/totalFrame>=1){
                                     clearInterval(doPlay);
+                                }
+                                else if(n/(totalFrame-1)<1){
+                                    n++;
                                 }
                             }, fps);
                         }
