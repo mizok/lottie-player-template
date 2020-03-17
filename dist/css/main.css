@@ -593,9 +593,10 @@ html, body {
 }
 
 .controller-panel {
-  position: fixed;
+  position: absolute;
   width: 100%;
   bottom: 0;
+  left: 0;
 }
 
 .controller-panel .playtrack {
