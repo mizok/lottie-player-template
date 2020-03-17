@@ -414,7 +414,10 @@ var $player = {
                 });
                 
                 // 初始化最大幀數
-                // dom.find('#frameTotal').html(lottieObj.animationRef.totalFrames);
+                if(lottieObj.hasOwnProperty('animationRef')){
+                    dom.find('#frameTotal').html(lottieObj.animationRef.totalFrames);
+                }
+                
 
                 //注意  module 耦合處  !!!
                 $player.keyDom.on('mouseup mouseleave',function(e){
@@ -432,8 +435,10 @@ var $player = {
                         var maxDist = track.width();
                         dist = dist>=0? dist:0;
                         dist = dist>=maxDist? maxDist :dist;
-                        // console.log(dist,track_btn.data('mouseNowLoc'),track_btn.data('mousedownLoc'));
+                        
                         $player.$subModule._controllerPanel.util.toFrame(dist/maxDist);
+                        console.log(dist,track_btn.data('mouseNowLoc'),track_btn.data('mousedownLoc'));
+
                         
                     }
                 })
@@ -446,8 +451,8 @@ var $player = {
                     var track = track_btn.parent();
                     var maxDist = track.width();
                     var track_inner = track_btn.siblings('.track-inner');
-                    track_inner.css('width',(maxDist*percent)+'px');
-                    track_btn.css('left',(maxDist*percent)+'px');
+                    track_inner.css('width',Math.floor(percent*100)+'%');
+                    track_btn.css('left',Math.floor(percent*100)+'%');
                     var frameNow = Math.floor(percent*lottieObj.animationRef.totalFrames);
                     dom.find('#frameNow').html(frameNow);
                     if(lottieObj.hasOwnProperty('animationRef')){
