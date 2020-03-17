@@ -672,9 +672,10 @@ html, body {
 
 .controller-panel .playtrack .track-wrapper .track .track-btn {
   position: absolute;
+  z-index: 99;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   width: 20px;
   height: 20px;
   background-color: #fff;
@@ -687,7 +688,6 @@ html, body {
   position: absolute;
   left: 0;
   top: 0;
-  width: 30px;
   background-color: white;
 }
 
@@ -695,6 +695,7 @@ html, body {
   -webkit-box-flex: 0;
       -ms-flex: none;
           flex: none;
+  width: 4rem;
   padding-right: 20px;
 }
 

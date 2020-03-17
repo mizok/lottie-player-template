@@ -41,6 +41,7 @@ var _initial = [
     ,$bootstrapPopupEvent
     ,$player
     ,$menu
+    // ,$controllerPanel
 ];
 var _onResize = [],
     _onWindowScroll = [],
@@ -249,6 +250,29 @@ var firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 
+var lottieObj = {
+    target:$('.screen')[0]
+    ,deleteAnimationRef:function(){
+        if(this.hasOwnProperty('animationRef')){
+            $player.$subModule._controllerPanel.util.toFrame(0);
+            this.animationRef.destroy();
+            
+        }
+    },
+    genAnimationRef:function(){
+        var _this = this;
+        _this.deleteAnimationRef();
+        _this.animationRef = lottie.loadAnimation({
+            container: _this.target, // the dom element that will contain the animation
+            renderer: 'svg',
+            loop: false,
+            autoplay: false,
+            animationData: _this.animationJSON
+            // path: 'src/json/data.json' // the path to the animation json
+        })
+
+    }
+};
 var $action={
     player:{},
     panel:{}
@@ -258,7 +282,6 @@ var $util={
     initial:function(){
         //套件 function
         this.pluginFunction();
-        
     },
     pluginFunction:function(){
 
@@ -277,7 +300,6 @@ var $util={
         if(cb){
             cb.apply(status);
         }
-        
     }
 }
 
@@ -292,42 +314,112 @@ var $bodyHandler = {
 var $player = {
     key:'#player'
     ,initial:function(){
+
         var dom = this.keyDom;
         var _this = this;
-
-        // 定義播放鍵handler
-        var btn_play = dom.find('.btn_play')
-        $action.player.togglePause = function(){
-            $util.class_toggler(btn_play,'pause');
-        }
-        btn_play.click(function(e){
-            e.preventDefault();
-            $action.player.togglePause();
-        })
         
         // 定義菜單鍵handler
         var btn_menu = dom.find('.hamburger')
         $action.panel.toggleOpen = function(){
-            $util.class_toggler(dom,'active');
+            $util.class_toggler(dom,'active',function(){
+                $util.class_toggler(btn_menu,'is-active');
+            });
         }
         btn_menu.click(function(e){
-           
             e.preventDefault();
             $action.panel.toggleOpen();
         })
-       
+    }
+    ,$subModule:{
+        initial:function(){
+            this._controllerPanel.initial();
+        },
+        _controllerPanel : {
+            key:'.controller-panel'
+            ,genChild:function(){
+                this.util.parent = this;
+                delete this.genChild;
+                return this;
+            }
+            ,initial:function(){
+                var dom = $(this.key);
+                var _this = this;
+                var track_btn = dom.find('.track-btn');
+                var track = track_btn.parent();
+                var track_inner = track_btn.siblings('.track-inner');
 
+                // 定義播放鍵handler
+                var btn_play = dom.find('.btn_play')
+                $action.player.togglePause = function(){
+                    $util.class_toggler(btn_play,'pause');
+                    
+                }
+                btn_play.click(function(e){
+                    e.preventDefault();
+                    $action.player.togglePause();
+                })
+
+
+                track_btn.data('isClicked', false);
+                track_btn.on('click',function(e){
+                    e.preventDefault();
+                });
+                track_btn.on('mousedown',function(e){
+                    e.preventDefault();
+                    track_btn.data('isClicked', true);
+                    if(!track_btn.data('mousedownLoc')){
+                        track_btn.data('mousedownLoc', e.pageX);
+                    }
+                    
+                });
+                
+                // 初始化最大幀數
+                dom.find('.frameTotal').html(lottieObj.animationRef.totalFrames)
+
+                //注意  module 耦合處  !!!
+                $player.keyDom.on('mouseup mouseleave',function(e){
+                    e.preventDefault();
+                    if(track_btn.data('isClicked')){
+                        track_btn.data('isClicked', false);
+                    }
+                })
+
+                dom.on('mousemove',function(e){
+                    e.preventDefault();
+                    if(track_btn.data('isClicked')){
+                        track_btn.data('mouseNowLoc', e.pageX);
+                        var dist =  track_btn.data('mouseNowLoc') - track_btn.data('mousedownLoc');
+                        var maxDist = track.width();
+                        dist = dist>=0? dist:0;
+                        dist = dist>=maxDist? maxDist :dist;
+                        // console.log(dist,track_btn.data('mouseNowLoc'),track_btn.data('mousedownLoc'));
+                        $player.$subModule._controllerPanel.util.toFrame(dist/maxDist);
+                        
+                    }
+                })
+                
+            }
+            ,util:{
+                toFrame:function(percent){
+                    var dom = $(this.parent.key);
+                    var track_btn = dom.find('.track-btn');
+                    var track = track_btn.parent();
+                    var maxDist = track.width();
+                    var track_inner = track_btn.siblings('.track-inner');
+                    track_inner.css('width',(maxDist*percent)+'px');
+                    track_btn.css('left',(maxDist*percent)+'px');
+                    var frameNow = Math.floor(percent*lottieObj.animationRef.totalFrames);
+                    dom.find('.frameNow').html(frameNow);
+                    if(lottieObj.hasOwnProperty('animationRef')){
+                        lottieObj.animationRef.goToAndStop(frameNow, true);
+                    }
+                    
+                }
+            }
+        }.genChild(),
     }
-    
 }
-var $controllerPanel = {
-    key:'.controller-panel'
-    ,initial:function(){
-        var dom = this.keyDom;
-        var _this = this;
-        var playtrack = dom.find('')
-    }
-}
+
 var $menu = {
     key:'#menu'
     ,initial:function(){
@@ -348,33 +440,18 @@ var $menu = {
         })
         var file_input = dom.find('.input-block input').on('change',function(e){
             e.preventDefault();
-            var _input = dom.find('.input-block input');
+            var _input = $(this);
             var selectedFile = _input[0].files[0];  
-            $(this).parents('.input-block').find('.text span').html(selectedFile.name);
+            _input.parents('.input-block').find('.text span').html(selectedFile.name);
             var fileread = new FileReader();
             fileread.onload = function(e) {
                 var content = e.target.result;
-                // console.log(content);
-                var lottieObj = {
-                    animationJSON:JSON.parse(content),
-                    deleteAnimationRef:function(){
-                        delete this.animationRef;
-                        $('.screen svg').remove();
-                    },
-                    genAnimationRef:function(){
-                        var _this = this;
-                        _this.deleteAnimationRef();
-                        _this.animationRef = lottie.loadAnimation({
-                            container: $('.screen')[0], // the dom element that will contain the animation
-                            renderer: 'svg',
-                            loop: true,
-                            autoplay: true,
-                            animationData: _this.animationJSON
-                            // path: 'src/json/data.json' // the path to the animation json
-                        })
-                    },
-                };
+
+                lottieObj.animationJSON=JSON.parse(content);
                 lottieObj.genAnimationRef();
+                $player.$subModule.initial();
+
+
                 $action.panel.toggleOpen();
             };
             fileread.readAsText(selectedFile);

@@ -154,8 +154,9 @@
                 position: relative;
                 .track-btn{
                     position: absolute;
+                    z-index: 99;
                     top: 50%;
-                    transform:translateY(-50%);
+                    transform:translate(-50%,-50%);
                     width: 20px;
                     height: 20px;
                     background-color: #fff;
@@ -167,13 +168,14 @@
                     position: absolute;
                     left: 0;
                     top: 0;
-                    width: 30px;
+                    // width: 30px;
                     background-color: rgba(255, 255, 255, 1);
                 }
             }
         }
         .frame-indicator{
             flex:none;
+            width: 4rem;
             padding-right: 20px;
             span{
                 font-size: 20px;
