@@ -255,7 +255,7 @@ var lottieObj = {
     target:$('.screen')[0]
     ,getDefaultAnimation : function(){
         var _this = this;
-        $.getJSON("../../src/json/data.json",function(result){
+        $.getJSON("./src/json/data.json",function(result){
             _this.animationJSON = result;
             lottieObj.genAnimationRef();
             // 初始化最大幀數
