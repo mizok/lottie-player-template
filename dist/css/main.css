@@ -266,6 +266,7 @@ html, body {
   font-size: 0;
   white-space: nowrap;
   background-color: #545454;
+  overflow: hidden;
 }
 
 #player * {

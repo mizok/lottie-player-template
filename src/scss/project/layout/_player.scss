@@ -5,6 +5,7 @@
     font-size: 0;
     white-space: nowrap;
     background-color: rgb(84, 84, 84);
+    overflow: hidden;// ie 畫面溢出問題
     *{font-family: 'ubuntu-mono', 'source-han-sans-traditional',Arial, Helvetica, sans-serif}
     >.inner{
         height: 100%;
