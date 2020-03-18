@@ -414,7 +414,7 @@ var $player = {
                 track_btn.on('click',function(e){
                     e.preventDefault();
                 });
-                track_btn.on('mousedown',function(e){
+                track_btn.on('mousedown touchend',function(e){
                     e.preventDefault();
                     track_btn.data('isClicked', true);
                     
@@ -423,14 +423,14 @@ var $player = {
                 
 
                 //注意  module 耦合處  !!!
-                $player.keyDom.on('mouseup mouseleave',function(e){
+                $player.keyDom.on('mouseup mouseleave touchstart',function(e){
                     e.preventDefault();
                     if(track_btn.data('isClicked')){
                         track_btn.data('isClicked', false);
                     }
                 })
 
-                dom.on('mousemove',function(e){
+                $player.keyDom.on('mousemove touchstart',function(e){
                     e.preventDefault();
                     if(track_btn.data('isClicked')){
                         var dist;
@@ -461,7 +461,6 @@ var $player = {
                     if(lottieObj.hasOwnProperty('animationRef')){
                         lottieObj.animationRef.goToAndStop(frameNow, true);
                     }
-                    
                 }
             }
         }.genChild(),
