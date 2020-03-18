@@ -262,8 +262,7 @@ var lottieObj = {
         $.getJSON("./src/json/data.json",function(result){
             _this.animationJSON = result;
             _this.genAnimationRef();
-            // 初始化最大幀數
-            $('#frameTotal').html(_this.animationRef.totalFrames);
+            
         })
         
         delete this.getDefaultAnimationData;
@@ -286,7 +285,8 @@ var lottieObj = {
             animationData: _this.animationJSON
             // path: 'src/json/data.json' // the path to the animation json
         })
-
+        // 初始化最大幀數
+        $('#frameTotal').html(_this.animationRef.totalFrames);
     }
 }.getDefaultAnimation();
 
@@ -370,28 +370,31 @@ var $player = {
                 var track_inner = track_btn.siblings('.track-inner');
 
                 // 定義播放鍵handler
-                var btn_play = dom.find('.btn_play')
+                var btn_play = dom.find('.btn_play');
                 var fps = 33;
-                var totalFrames = lottieObj.animationRef.totalFrames;
-                
                 var doPlay;
                 $action.player.togglePause = function(){
+                    var totalFrames = lottieObj.animationRef.totalFrames;
                     var frameNow = lottieObj.trackData.percentageNow*totalFrames; 
                     $util.class_toggler(btn_play,'pause',function(){
+                        console.log(this.class_added);
                         if(!this.class_added){
                             clearInterval(doPlay);
-                            $player.$subModule._controllerPanel.util.toPercentage(frameNow/(totalFrames-1));
-                            lottieObj.trackData.percentageNow = frameNow/(totalFrames-1);
+                            if((frameNow-1)<=totalFrames){
+                                $player.$subModule._controllerPanel.util.toPercentage((frameNow)/(totalFrames));
+                                lottieObj.trackData.percentageNow = (frameNow)/(totalFrames);
+                            }
+                           
                         }
                         else if(this.class_added){
                             doPlay = setInterval(function(){
-                                console.log(frameNow);
-                                $player.$subModule._controllerPanel.util.toPercentage(frameNow/(totalFrames-1));
-                                lottieObj.trackData.percentageNow = frameNow/(totalFrames-1);
-                                if(frameNow/totalFrames>=1){
+                                if((frameNow-1)/(totalFrames)>=1){
                                     clearInterval(doPlay);
+                                    console.log('pause',frameNow);
                                 }
-                                else if(frameNow/(totalFrames-1)<1){
+                                else if((frameNow-1)/(totalFrames)<1){
+                                    $player.$subModule._controllerPanel.util.toPercentage(frameNow/(totalFrames));
+                                    lottieObj.trackData.percentageNow = frameNow/(totalFrames);
                                     frameNow++;
                                 }
                             }, fps);
@@ -417,10 +420,6 @@ var $player = {
                     
                 });
                 
-                // 初始化最大幀數
-                if(lottieObj.hasOwnProperty('animationRef')){
-                    dom.find('#frameTotal').html(lottieObj.animationRef.totalFrames);
-                }
                 
 
                 //注意  module 耦合處  !!!
@@ -484,7 +483,7 @@ var $menu = {
             
             // var storageRef = firebase.storage().ref('animation-json/'+selectedFile.name); 
             // storageRef.put(selectedFile).then(function(snapshot) {
-            //     console.log('Uploaded a blob or file!');
+            //     
             // });     
         })
         var file_input = dom.find('.input-block input').on('change',function(e){
@@ -495,12 +494,13 @@ var $menu = {
             var fileread = new FileReader();
             fileread.onload = function(e) {
                 var content = e.target.result;
-
                 lottieObj.animationJSON=JSON.parse(content);
+                lottieObj.trackData.percentageNow = 0;
                 lottieObj.genAnimationRef();
+
+                // 把拉桿拉回原點
+                $player.$subModule._controllerPanel.util.toPercentage(0);
                 
-
-
                 $action.panel.toggleOpen();
             };
             fileread.readAsText(selectedFile);
@@ -772,15 +772,15 @@ function listChinese(){
             function _getLength(ele){
                 var eleSpanArray = ele.text().split("");
                 var eleSpanLength = 0;
-                // console.log(numSpanArray);
+                // 
                 eleSpanArray.forEach(function(character){
                     if(character.match(/[\x00-\xff]/g)){
                         eleSpanLength+=0.5;
-                        // console.log(i+':0.5');
+                        // 
                     }
                     else if(character.match(/[^\x00-\xff]/g)){
                         eleSpanLength+=1;
-                        // console.log(i+':1');
+                        // 
                     }
                 });
                 if(Math.ceil(eleSpanLength)-eleSpanLength!=0){
@@ -815,7 +815,7 @@ function listChinese(){
                     var spanText = '';
                     var textTen = listType[10];
                     var texthundred = listType[11];
-                    // console.log(indexArray );
+                    // 
                     if(indexArrayLength < 2){
                         spanText = listType[indexNum];
                     }
@@ -837,7 +837,7 @@ function listChinese(){
                     thisObj.prepend(spanStyle+ spanText+addSpanEnd+endSign+"</span>");
                     var numSpan = thisObj.find('span').first();
                     thisObj.addClass("effect-list-chinese-"+_getLength(numSpan));
-                    // console.log(numSpan.text().length);
+                    // 
                 });
             }
             else if(thisType === 'number'){
@@ -859,7 +859,7 @@ function listChinese(){
                     var thisObj = $(o);
                     var str = (i+1)+'';
                     var indexNum = str.halfToFull();
-                    console.log(indexNum);
+                    
                     thisObj.prepend(spanStyle+ indexNum+addSpanEnd+endSign+"</span>");
                     var numSpan = thisObj.find('span').first();
                     thisObj.addClass("effect-list-chinese-"+_getLength(numSpan));
