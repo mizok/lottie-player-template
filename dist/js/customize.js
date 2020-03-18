@@ -414,6 +414,10 @@ var $player = {
                 track_btn.on('click',function(e){
                     e.preventDefault();
                 });
+                track.on('touchstart',function(e){
+                    e.preventDefault();
+                    track_btn.data('isClicked', true);
+                });
                 track_btn.on('mousedown touchstart',function(e){
                     e.preventDefault();
                     track_btn.data('isClicked', true);
