@@ -253,13 +253,17 @@ var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userA
 
 var lottieObj = {
     target:$('.screen')[0]
+    ,trackData:{
+        percentageNow:0
+    }
     ,getDefaultAnimation : function(){
         var _this = this;
+        $.ajaxSettings.async = false;
         $.getJSON("./src/json/data.json",function(result){
             _this.animationJSON = result;
-            lottieObj.genAnimationRef();
+            _this.genAnimationRef();
             // 初始化最大幀數
-            $('#frameTotal').html(lottieObj.animationRef.totalFrames);
+            $('#frameTotal').html(_this.animationRef.totalFrames);
         })
         
         delete this.getDefaultAnimationData;
@@ -267,9 +271,8 @@ var lottieObj = {
     }
     ,deleteAnimationRef:function(){
         if(this.hasOwnProperty('animationRef')){
-            $player.$subModule._controllerPanel.util.toFrame(0);
+            $player.$subModule._controllerPanel.util.toPercentage(0);
             this.animationRef.destroy();
-            
         }
     },
     genAnimationRef:function(){
@@ -368,24 +371,28 @@ var $player = {
 
                 // 定義播放鍵handler
                 var btn_play = dom.find('.btn_play')
-                var n = 0;
+                var fps = 33;
+                var totalFrames = lottieObj.animationRef.totalFrames;
+                
                 var doPlay;
                 $action.player.togglePause = function(){
+                    var frameNow = lottieObj.trackData.percentageNow*totalFrames; 
                     $util.class_toggler(btn_play,'pause',function(){
-                        var fps = 33;
-                        var totalFrame = lottieObj.animationRef.totalFrames;
                         if(!this.class_added){
                             clearInterval(doPlay);
-                            $player.$subModule._controllerPanel.util.toFrame(n/(totalFrame-1));
+                            $player.$subModule._controllerPanel.util.toPercentage(frameNow/(totalFrames-1));
+                            lottieObj.trackData.percentageNow = frameNow/(totalFrames-1);
                         }
                         else if(this.class_added){
                             doPlay = setInterval(function(){
-                                $player.$subModule._controllerPanel.util.toFrame(n/(totalFrame-1));
-                                if(n/totalFrame>=1){
+                                console.log(frameNow);
+                                $player.$subModule._controllerPanel.util.toPercentage(frameNow/(totalFrames-1));
+                                lottieObj.trackData.percentageNow = frameNow/(totalFrames-1);
+                                if(frameNow/totalFrames>=1){
                                     clearInterval(doPlay);
                                 }
-                                else if(n/(totalFrame-1)<1){
-                                    n++;
+                                else if(frameNow/(totalFrames-1)<1){
+                                    frameNow++;
                                 }
                             }, fps);
                         }
@@ -407,9 +414,6 @@ var $player = {
                 track_btn.on('mousedown',function(e){
                     e.preventDefault();
                     track_btn.data('isClicked', true);
-                    if(!track_btn.data('mousedownLoc')){
-                        track_btn.data('mousedownLoc', e.pageX);
-                    }
                     
                 });
                 
@@ -430,14 +434,14 @@ var $player = {
                 dom.on('mousemove',function(e){
                     e.preventDefault();
                     if(track_btn.data('isClicked')){
-                        track_btn.data('mouseNowLoc', e.pageX);
-                        var dist =  track_btn.data('mouseNowLoc') - track_btn.data('mousedownLoc');
+                        var dist;
+                        var checkOrigin = e.pageX - track.offset().left;
                         var maxDist = track.width();
-                        dist = dist>=0? dist:0;
+                        dist = checkOrigin>=0? checkOrigin:0;
                         dist = dist>=maxDist? maxDist :dist;
-                        
-                        $player.$subModule._controllerPanel.util.toFrame(dist/maxDist);
-                        console.log(dist,track_btn.data('mouseNowLoc'),track_btn.data('mousedownLoc'));
+                        lottieObj.trackData.percentageNow = dist/maxDist;
+                        $player.$subModule._controllerPanel.util.toPercentage(dist/maxDist);
+
 
                         
                     }
@@ -445,7 +449,7 @@ var $player = {
                 
             }
             ,util:{
-                toFrame:function(percent){
+                toPercentage:function(percent){
                     var dom = $(this.parent.key);
                     var track_btn = dom.find('.track-btn');
                     var track = track_btn.parent();
