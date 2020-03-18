@@ -344,7 +344,7 @@ var $player = {
                 $util.class_toggler(btn_menu,'is-active');
             });
         }
-        btn_menu.click(function(e){
+        btn_menu.on('click touchstart',function(e){
             e.preventDefault();
             $action.panel.toggleOpen();
         })
