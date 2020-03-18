@@ -11,42 +11,20 @@
 </head>
 <body>
 <!-- The core Firebase JS SDK is always required and must be listed first -->
-<!-- <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-storage.js"></script> -->
+<script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-storage.js"></script>
 
 <!-- 內容填在這邊喔 :D -->
-
+<div class="mask-objects">
+    <div  class="modal-wrapper" include-html="src/include/firebase-config.html"></div>
+    <div  class="modal-wrapper" include-html="src/include/alert1.html"></div>
+    <!-- <div class="modal-wrapper" include-html="src/include/menu.html"></div> -->
+</div>
 <div id="player">
     <div class="inner">
-        <div class="menu-wrapper">
-            <div class="menu" id="menu">
-                <h6><span>SELECT YOUR FILE</span></h6>
-                <div class="input-block">
-                    <div class="inner">
-                        <input type="file" accept=".json">
-                        <div class="text">
-                            <span></span>
-                        </div>
-                    </div>
-                    <div class="error-msg">
-                        <span>錯誤訊息</span>
-                    </div>
-                    <div class="folder-btn">
-                        <img src="src/img/folder.svg" alt="">
-                    </div>
-                </div>
-                <h6><span>SELECT YOUR ACTION</span></h6>
-                <div class="list-wrapper">
-                    <ul class="list">
-                       <li class="item disable" action="upload"><a href=""><span>上傳至雲端&nbsp;&nbsp;UPLOAD</span></a></li>
-                       <li class="item disable" action="download"><a href=""><span>從雲端下載&nbsp;&nbsp;DOWNLOAD</span></a></li>
-                    </ul>
-                </div>
-                
-            </div>
-        </div>
+        <div class="menu-wrapper" include-html="src/include/menu.html"></div>
         
         <div class="screen-wrapper">
             <button class="hamburger hamburger--collapse" type="button">

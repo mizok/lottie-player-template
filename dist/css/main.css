@@ -755,6 +755,23 @@ body.isMobile .controller-panel .playtrack .track-wrapper .track .track-btn:afte
   font-size: 12px;
 }
 
+#firebase-config .modal-body textarea {
+  width: 100%;
+  height: 300px;
+  background-color: transparent;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  color: white;
+}
+
+.modal .modal-dialog {
+  color: white;
+}
+
+.modal .modal-dialog .modal-content {
+  background-color: #505050;
+}
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors

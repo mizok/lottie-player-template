@@ -1,0 +1,37 @@
+@import "alert1";
+@import "firebaseConfig";
+
+.modal { 
+
+	.modal-dialog { 
+        
+        color:white;
+		.modal-content { 
+            background-color: rgb(80, 80, 80);
+			.modal-header { 
+
+				.modal-title { 
+
+				}
+
+				.close { 
+
+					span { 
+
+					}
+				}
+			}
+
+			.modal-body { 
+
+			}
+
+			.modal-footer { 
+
+				.btn { 
+
+				}
+			}
+		}
+	}
+}

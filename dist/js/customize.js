@@ -20,7 +20,7 @@ var includeHTML = function(cb) {
             if (this.status == 200) {elmnt.innerHTML = this.responseText;}
             if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
             elmnt.removeAttribute("include-html");
-            // w3.includeHTML(cb);
+            includeHTML(cb);
           }
         }      
         xhttp.open("GET", file, true);
@@ -236,19 +236,9 @@ var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userA
 //     }
 // }
 
-// var firebaseConfig = {
-//     apiKey: "AIzaSyCdrjun_PkAxv_GWo_S8KUTdjx6M8G1z74",
-//     authDomain: "lottie-player.firebaseapp.com",
-//     databaseURL: "https://lottie-player.firebaseio.com",
-//     projectId: "lottie-player",
-//     storageBucket: "lottie-player.appspot.com",
-//     messagingSenderId: "792201423394",
-//     appId: "1:792201423394:web:b8d76175cc2a856778b87b",
-//     measurementId: "G-T221N4QJTM"
-//   };
+
 //   // Initialize Firebase
-//   firebase.initializeApp(firebaseConfig);
-//   firebase.analytics();
+
 
 
 var lottieObj = {
@@ -490,12 +480,18 @@ var $menu = {
         //套件 function
         var dom = this.keyDom;
         var _this = this;
-        var file_action = dom.find('.list-wrapper .list .item a').click(function(e){
+        this.$subModule.initial();
+        var file_action = dom.find('.list-wrapper .list .item a').on('click touchstart',function(e){
             e.preventDefault();
             var _input = dom.find('.input-block input');
             var selectedFile = _input[0].files[0];  
             var action = $(this).parents('.item').attr('action');
 
+            if(action=="upload"){
+                if(!firebase.apps.length){
+                    $('#firebase-config').modal('show');
+                }
+            }
             
             // var storageRef = firebase.storage().ref('animation-json/'+selectedFile.name); 
             // storageRef.put(selectedFile).then(function(snapshot) {
@@ -523,6 +519,34 @@ var $menu = {
         })
         
 
+    }
+    ,$subModule:{
+        initial:function(){
+            this.$firebaseConfig.initial();
+        },
+        $firebaseConfig:{
+            key :'#firebase-config',
+            initial:function(){
+                var _this = this;
+                var keyDom = $(this.key);
+                keyDom.find('.btn-primary').on('click touchstart',function(){
+                    var config = keyDom.find('#firebaseConfigEval').val();
+                    console.log(keyDom.find('#firebaseConfigEval').val());
+                    if(config){
+                        eval(config);
+                        if (!firebase.apps.length) {
+                            console.log(firebaseConfig);
+                            firebase.initializeApp(firebaseConfig);
+                            firebase.analytics();
+                         }
+                    }
+                    
+                    
+                })
+                
+                
+            }
+        }
     }
 }
 
