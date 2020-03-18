@@ -404,7 +404,7 @@ var $player = {
                     
                     
                 }
-                btn_play.click(function(e){
+                btn_play.on('click touchstart',function(e){
                     e.preventDefault();
                     $action.player.togglePause();
                 })
@@ -414,23 +414,22 @@ var $player = {
                 track_btn.on('click',function(e){
                     e.preventDefault();
                 });
-                track_btn.on('mousedown touchend',function(e){
+                track_btn.on('mousedown touchstart',function(e){
                     e.preventDefault();
                     track_btn.data('isClicked', true);
-                    
                 });
                 
                 
 
                 //注意  module 耦合處  !!!
-                $player.keyDom.on('mouseup mouseleave touchstart',function(e){
+                $player.keyDom.on('mouseup mouseleave touchend',function(e){
                     e.preventDefault();
                     if(track_btn.data('isClicked')){
                         track_btn.data('isClicked', false);
                     }
                 })
 
-                $player.keyDom.on('mousemove touchstart',function(e){
+                $player.keyDom.on('mousemove',function(e){
                     e.preventDefault();
                     if(track_btn.data('isClicked')){
                         var dist;
@@ -443,6 +442,19 @@ var $player = {
 
 
                         
+                    }
+                });
+                $player.keyDom.on('touchmove',function(e){
+                    e.preventDefault();
+                    if(track_btn.data('isClicked')){
+                        var dist;
+                        var checkOrigin = e.originalEvent.touches[0].pageX - track.offset().left;
+                        var maxDist = track.width();
+                        dist = checkOrigin>=0? checkOrigin:0;
+                        dist = dist>=maxDist? maxDist :dist;
+                        lottieObj.trackData.percentageNow = dist/maxDist;
+                        $player.$subModule._controllerPanel.util.toPercentage(dist/maxDist);
+
                     }
                 })
                 
@@ -461,6 +473,7 @@ var $player = {
                     if(lottieObj.hasOwnProperty('animationRef')){
                         lottieObj.animationRef.goToAndStop(frameNow, true);
                     }
+                    
                 }
             }
         }.genChild(),
