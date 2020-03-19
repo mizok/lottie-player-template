@@ -486,17 +486,18 @@ var $menu = {
             var _input = dom.find('.input-block input');
             var selectedFile = _input[0].files[0];  
             var action = $(this).parents('.item').attr('action');
-
+            
             if(action=="upload"){
-                if(!firebase.apps.length){
+                if(!window.localStorage.getItem('myFirebaseConfig')){
                     $('#firebase-config').modal('show');
                 }
+
+                firebase.storage().ref('animation-json/'+selectedFile.name).put(selectedFile).then(function(snapshot) {
+                    
+                });   
             }
             
-            // var storageRef = firebase.storage().ref('animation-json/'+selectedFile.name); 
-            // storageRef.put(selectedFile).then(function(snapshot) {
-            //     
-            // });     
+              
         })
         var file_input = dom.find('.input-block input').on('change',function(e){
             e.preventDefault();
@@ -530,17 +531,19 @@ var $menu = {
                 var _this = this;
                 var keyDom = $(this.key);
                 keyDom.find('.btn-primary').on('click touchstart',function(){
-                    var config = keyDom.find('#firebaseConfigEval').val();
-                    console.log(keyDom.find('#firebaseConfigEval').val());
+                    var _config = keyDom.find('#firebaseConfigEval').val();
+                    window.localStorage.setItem('myFirebaseConfig', _config);
+                    var config = localStorage.getItem('myFirebaseConfig');
                     if(config){
-                        eval(config);
                         if (!firebase.apps.length) {
+                            eval(config);
                             console.log(firebaseConfig);
-                            firebase.initializeApp(firebaseConfig);
-                            firebase.analytics();
+
+                            
                          }
+                         
+                        
                     }
-                    
                     
                 })
                 
